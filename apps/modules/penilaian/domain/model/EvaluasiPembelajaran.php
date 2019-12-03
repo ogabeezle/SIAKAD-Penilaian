@@ -1,8 +1,8 @@
 <?php
 namespace Siakad\Penilaian\Domain\Model;
 
-use Siakad\Scheduling\Domain\Model\Dosen;
-
+use Siakad\Penilaian\Domain\Model\Dosen;
+use Siakad\Penilaian\Domain\Model\Kelas;
 class EvaluasiPembelajaran{
     private $kelas;
     private $dosen;

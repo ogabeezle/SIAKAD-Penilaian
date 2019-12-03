@@ -1,7 +1,8 @@
 <?php
 
-namespace Siakad\Scheduling\Domain\Model;
-
+namespace Siakad\Penilaian\Domain\Model;
+use Siakad\Penilaian\Domain\Model\MataKuliah;
+use Siakad\Penilaian\Domain\Model\Semester;
 class Kelas
 {
     private $id;

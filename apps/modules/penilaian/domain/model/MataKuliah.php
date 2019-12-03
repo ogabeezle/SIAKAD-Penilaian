@@ -1,6 +1,6 @@
 <?php
 
-namespace Siakad\Scheduling\Domain\Model;
+namespace Siakad\Penilaian\Domain\Model;
 
 class MataKuliah
 {

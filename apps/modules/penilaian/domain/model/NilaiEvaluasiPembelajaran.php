@@ -2,8 +2,8 @@
 
 namespace Siakad\Penilaian\Domain\Model;
 
-use Siakad\Scheduling\Domain\Model\Kelas;
-use Siakad\Scheduling\Domain\Model\Mahasiswa;
+use Siakad\Penilaian\Domain\Model\Kelas;
+use Siakad\Penilaian\Domain\Model\Mahasiswa;
 
 class NilaiEvaluasiPembelajaran{
     private $mahasiswa;
