@@ -1,9 +1,8 @@
 <?php
+namespace Siakad\Penilaian\Application;
 
-namespace Siakad\scheduling\application;
+class MelihatKomponenPenilaianKelasResponse{
 
-class MelihatPeriodeSemesterResponse
-{
     public $data;
 
     public function __construct($data)

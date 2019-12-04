@@ -8,15 +8,13 @@ class MataKuliah
     private $kodeMatkul;
     private $nama;
     private $SKS;
-    private $deskripsi;
 
-    public function __construct($id, $kodeMatkul, $nama, $SKS, $deskripsi)
+    public function __construct($id, $kodeMatkul, $nama, $SKS)
     {
         $this->id = $id;
         $this->kodeMatkul = $kodeMatkul;
         $this->nama = $nama;
         $this->SKS = $SKS;
-        $this->deskripsi = $deskripsi;
     }
 
     public function getId()
@@ -58,16 +56,4 @@ class MataKuliah
     {
         $this->SKS = $SKS;
     }
-
-    public function getDeskripsi()
-    {
-        return $this->deskripsi;
-    }
-
-    public function setDeskripsi($deskripsi)
-    {
-        $this->deskripsi = $deskripsi;
-    }
-
-
 }

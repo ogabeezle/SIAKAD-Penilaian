@@ -1,9 +1,7 @@
 <?php
+namespace Siakad\Penilaian\Application;
 
-namespace Siakad\scheduling\application;
-
-class MelihatJadwalKuliahProdiResponse
-{
+class MelihatListKelasResponse{
     public $data;
 
     public function __construct($data)

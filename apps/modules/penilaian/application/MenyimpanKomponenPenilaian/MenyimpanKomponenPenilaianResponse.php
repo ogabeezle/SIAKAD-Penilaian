@@ -1,8 +1,7 @@
 <?php
+namespace Siakad\Penilaian\Application;
 
-namespace Siakad\scheduling\application;
-
-class MelihatPeriodeKuliahResponse
+class MenyimpanKomponenPenilaianResponse
 {
     public $data;
 
@@ -10,4 +9,5 @@ class MelihatPeriodeKuliahResponse
     {
         $this->data = $data;
     }
+
 }
