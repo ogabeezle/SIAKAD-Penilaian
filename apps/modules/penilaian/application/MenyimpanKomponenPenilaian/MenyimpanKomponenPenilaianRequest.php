@@ -1,9 +1,6 @@
 <?php
 namespace Siakad\Penilaian\Application;
 
-
-
-class MenyimpanKomponenPenilaianRequest
-{
+class MenyimpanKomponenPenilaianRequest{
 
 }
