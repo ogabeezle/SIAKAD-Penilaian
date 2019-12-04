@@ -3,16 +3,17 @@ namespace Siakad\Penilaian\Application;
 
 use Siakad\Penilaian\Domain\Model\KelasRepository;
 
-class MelihatKomponenPenilaianKelasService{
+class MelihatNilaikelasService{
     private $kelasRepository;
+
     public function __construct(KelasRepository $kelasRepository){
         $this->kelasRepository=$kelasRepository;
     }
 
-    public function execute(MelihatKomponenPenilaianKelasRequest $request){
-        $nilaiEvaluasiPembelajaranArray=$this->kelasRepository->getKomponen(
+    public function execute(MelihatNilaiKelasRequest $request){
+        $nilaiKelasArray = $this->kelasRepository->getNilai(
             $request->kelas
         );
-        return new MelihatKomponenPenilaianKelasResponse($nilaiEvaluasiPembelajaranArray);
+        return new MelihatNilaiKelasResponse($nilaiKelasArray);
     }
 }

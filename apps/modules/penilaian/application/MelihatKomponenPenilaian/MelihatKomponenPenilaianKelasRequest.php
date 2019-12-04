@@ -1,11 +1,11 @@
 <?php
 namespace Siakad\Penilaian\Application;
 
+use Siakad\Penilaian\Domain\Model\Kelas;
+
 class MelihatKomponenPenilaianKelasRequest{
-    private $dosen;
-    private $kelas;
-    public function __construct($dosen, $kelas){
-        $this->dosen = $dosen;
+    public $kelas;
+    public function __construct(Dosen $dosen,Kelas $kelas){
         $this->kelas = $kelas;
     }
 }
