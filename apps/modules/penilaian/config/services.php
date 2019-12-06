@@ -1,6 +1,7 @@
 <?php
 
 use Siakad\Scheduling\Infrastructure\SqlJadwalKelasRepository;
+use Phalcon\Mvc\View;
 
 $di['voltServiceMail'] = function($view) use ($di) {
 
@@ -34,7 +35,7 @@ $di['view'] = function () {
     return $view;
 };
 
-$di->setShared('sql_jadwal_kelas_repository', function() use ($di) {
-    $repo = new SqlJadwalKelasRepository($di);
-    return $repo;
-});
+// $di->setShared('sql_jadwal_kelas_repository', function() use ($di) {
+//     $repo = new SqlJadwalKelasRepository($di);
+//     return $repo;
+// });
