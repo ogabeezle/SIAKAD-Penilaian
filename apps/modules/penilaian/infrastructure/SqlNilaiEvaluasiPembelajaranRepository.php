@@ -3,13 +3,24 @@ namespace Siakad\Penilaian\Infrastructure;
 
 use Phalcon\Db\Column;
 use Phalcon\Di;
+use Siakad\Penilaian\Domain\Model\Kelas;
+use Siakad\Penilaian\Domain\Model\Mahasiswa;
+use Siakad\Penilaian\Domain\Model\MataKuliah;
 use Siakad\Penilaian\Domain\Model\NilaiEvaluasiPembelajaran;
 use Siakad\Penilaian\Domain\Model\NilaiEvaluasiPembelajaranRepository;
+use Siakad\Penilaian\Domain\Model\Semester;
 
 class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajaranRepository {
     private $connection;
     private $statement;
     private $statementTypes;
+    const INDEX_KELAS_ID=0, INDEX_SEMESTER_ID=1, INDEX_MATAKULIAH_ID=2,
+        INDEX_NAMA_KELAS=3, INDEX_TAHUN_AJARAN=5,INDEX_SEMESTER=6, INDEX_NAMA_MATAKULIAH=8,
+        INDEX_KODE_MATA_KULIAH=9, INDEX_SKS_MATAKULIAH=10, INDEX_DOSEN_ID=11,
+        INDEX_MAHASISWA_ID=1, INDEX_NILAI_1=13, INDEX_NILAI_2=14, INDEX_NILAI_3=15,
+        INDEX_NILAI_4=16, INDEX_NILAI_5=17, INDEX_NILAI_6=18, INDEX_NILAI_7=19,
+        INDEX_NILAI_8=20,INDEX_NILAI_ANGKA=21, INDEX_NILAI_HURUF=22,
+        INDEX_NAMA_MAHASISWA=24;
 
     public function __construct(Di $di)
     {
@@ -24,6 +35,16 @@ class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajara
                              :nilai3,:nilai4,:nilai5,:nilai6,:nilai7,
                              :nilai8,:nilaiAngka,:nilaiHuruf)
                 
+            "),
+            'byMahasiswa' => $this->connection->prepare("
+                Select * from `kelas` 
+                    inner join `semester` on `kelas`.`semester_id` = `semester`.`id` 
+                    inner join `mata_kuliah` on `kelas`.`mata_kuliah_id` = `mata_kuliah`.`id` 
+                    inner join `nilai_evaluasi_pembelajaran` 
+                        on `kelas`.`id` = `nilai_evaluasi_pembelajaran`.`kelas_id` 
+                    inner join `mahasiswa` 
+                        on `mahasiswa`.`nrp` = `nilai_evaluasi_pembelajaran`.`mahasiswa_id`
+                where `mahasiswa`.`id`=:mahasiswaId
             "),
             'update' => $this->connection->prepare("
                 UPDATE `nilai_evaluasi_pembelajaran` 
@@ -72,18 +93,70 @@ class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajara
             'get' => [
                 'mahasiswaId' => Column::BIND_PARAM_STR,
                 'kelasId' => Column::BIND_PARAM_STR
+            ],
+            'byMahasiswa' => [
+                'mahasiswaId' => Column::BIND_PARAM_STR
             ]
         ];
+    }
+
+    public function byMahasiswa(Mahasiswa $mahasiswa)
+    {
+        $statementData = [
+            'mahasiswaId' => $mahasiswa->getNRP()
+        ];
+        $result = $this->connection->executePrepare(
+            $this->statement['byMahasiswa'],
+            $statementData,
+            $this->statementTypes['byMahasiswa']
+        );
+        $nilaiArray = array();
+        foreach ($result as $item){
+            array_push($nilaiArray, new NilaiEvaluasiPembelajaran(
+                new Mahasiswa(
+                    $item[self::INDEX_MAHASISWA_ID],
+                    $item[self::INDEX_NAMA_MAHASISWA]
+                ),
+                new kelas(
+                    $item[self::INDEX_KELAS_ID],
+                    new Semester(
+                        $item[self::INDEX_SEMESTER_ID],
+                        $item[self::INDEX_TAHUN_AJARAN],
+                        $item[self::INDEX_SEMESTER]
+                    ),
+                    new MataKuliah(
+                        $item[self::INDEX_MATAKULIAH_ID],
+                        $item[self::INDEX_KODE_MATA_KULIAH],
+                        $item[self::INDEX_NAMA_MATAKULIAH],
+                        $item[self::INDEX_SKS_MATAKULIAH]
+                    ),
+                    $item[self::INDEX_NAMA_KELAS]
+                ),
+                array(
+                    $item[self::INDEX_NILAI_1],
+                    $item[self::INDEX_NILAI_2],
+                    $item[self::INDEX_NILAI_3],
+                    $item[self::INDEX_NILAI_4],
+                    $item[self::INDEX_NILAI_5],
+                    $item[self::INDEX_NILAI_6],
+                    $item[self::INDEX_NILAI_7],
+                    $item[self::INDEX_NILAI_8]
+                ),
+                $item[self::INDEX_NILAI_ANGKA],
+                $item[self::INDEX_NILAI_HURUF]
+            ));
+        }
+        return $nilaiArray;
     }
 
     public function save(NilaiEvaluasiPembelajaran $nilaiEvaluasiPembelajaran)
     {
         $checkStatementData=[
-            'mahasiswaId' => $nilaiEvaluasiPembelajaran->getMahasiswa()->getId(),
+            'mahasiswaId' => $nilaiEvaluasiPembelajaran->getMahasiswa()->getNRP(),
             'kelasId' => $nilaiEvaluasiPembelajaran->getKelas()->getId()
         ];
         $statementData = [
-            'mahasiswaId' => $nilaiEvaluasiPembelajaran->getMahasiswa()->getId(),
+            'mahasiswaId' => $nilaiEvaluasiPembelajaran->getMahasiswa()->getNRP(),
             'kelasId' => $nilaiEvaluasiPembelajaran->getKelas()->getId(),
             'nilai1' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[0],
             'nilai2' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[1],

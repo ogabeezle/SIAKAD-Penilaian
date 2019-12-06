@@ -2,7 +2,7 @@
 
 $namespace = "Siakad\Penilaian\Controllers\Web";
 
-$router->add("/nilai",[
+$router->addGet("/nilai",[
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',

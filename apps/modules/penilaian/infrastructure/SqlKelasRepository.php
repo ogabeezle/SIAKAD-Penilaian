@@ -2,6 +2,7 @@
 namespace Siakad\Penilaian\Infrastructure;
 
 use Phalcon\Db\Column;
+use Phalcon\Di;
 use Siakad\Penilaian\Domain\Model\EvaluasiPembelajaran;
 use Siakad\Penilaian\Domain\Model\Kelas;
 use Siakad\Penilaian\Domain\Model\KelasRepository;
@@ -31,7 +32,7 @@ class SqlKelasRepository implements KelasRepository{
         INDEX_BOBOT_7=27, INDEX_NAMA_EVALUASI_8=28, INDEX_BOBOT_8=29, INDEX_ISFIXED=30,
         INDEX_NAME_DOSEN=32;
 
-    public function __construct($di)
+    public function __construct(Di $di)
     {
         $this->connection = $di->get('db');
 
