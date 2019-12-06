@@ -1,0 +1,10 @@
+<h1>List Kelas Dosen dengan ID <?= $parameter->dosenId ?> dan Semester <?= $parameter->semester ?> </h1>
+
+<table>
+    <th>
+        <td>Kode Kelas</td>
+        <td>Nama Kelas</td>
+        <td>Aksi</td>
+    </th>
+
+</table>

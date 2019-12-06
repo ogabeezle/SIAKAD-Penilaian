@@ -1,26 +1,26 @@
 <?php
 
-use Siakad\Scheduling\Infrastructure\SqlJadwalKelasRepository;
+// use Siakad\Scheduling\Infrastructure\SqlJadwalKelasRepository;
 use Phalcon\Mvc\View;
 
-$di['voltServiceMail'] = function($view) use ($di) {
+// $di['voltServiceMail'] = function($view) use ($di) {
 
-    $config = $di->get('config');
+//     $config = $di->get('config');
 
-    $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
-    if (!is_dir($config->mail->cacheDir)) {
-        mkdir($config->mail->cacheDir);
-    }
+//     $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+//     if (!is_dir($config->mail->cacheDir)) {
+//         mkdir($config->mail->cacheDir);
+//     }
 
-    $compileAlways = $config->mode == 'DEVELOPMENT' ? true : false;
+//     $compileAlways = $config->mode == 'DEVELOPMENT' ? true : false;
 
-    $volt->setOptions(array(
-        "compiledPath" => $config->mail->cacheDir,
-        "compiledExtension" => ".compiled",
-        "compileAlways" => $compileAlways
-    ));
-    return $volt;
-};
+//     $volt->setOptions(array(
+//         "compiledPath" => $config->mail->cacheDir,
+//         "compiledExtension" => ".compiled",
+//         "compileAlways" => $compileAlways
+//     ));
+//     return $volt;
+// };
 
 $di['view'] = function () {
     $view = new View();
