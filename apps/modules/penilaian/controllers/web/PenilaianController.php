@@ -41,10 +41,10 @@ class PenilaianController extends Controller
         # parameter request pake id dosen sama bilangan semester, kalo parameternya class dosen sama class semester model dosen sama semester harus diexpose ke controller
         $request = new MelihatListKelasRequest($dosenId, $semester);
         $response = $service->execute($request);
-        echo "<pre>";
-        print_r($response->data);
-        echo "</pre>";
-        // die();
+        // echo "<pre>";
+        // print_r($response->data);
+        // echo "</pre>";
+        // // die();
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
         $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester]));
@@ -60,16 +60,16 @@ class PenilaianController extends Controller
         # yang perlu diinject di set di penilaian/config/services.php
          $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
 
-        $dosenId = $this->request->get('dosenId');
         $kelasId = $this->request->get('kelasId');
 
-         $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
-         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
-         $response = $service->execute($request);
-
-         print_r($response->data);
-         die(0
-         );
+        $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
+        $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
+        $response = $service->execute($request);
+        
+        echo "<pre>";
+        print_r($response->data);
+        echo "</pre>";
+        die();
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
         $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester, 'kodeMatkul' => $kodematkul]));
@@ -88,9 +88,10 @@ class PenilaianController extends Controller
         $request = new MelihatNilaiKelasRequest($kelasId);
         $response = $service->execute($request);
 
+        echo "<pre>";
         print_r($response->data);
-        die(0
-        );
+        echo "</pre>";
+        die();
 
         return $this->view->pick('lihatnilaikelas');
 
@@ -108,9 +109,10 @@ class PenilaianController extends Controller
         print_r($request);
         $response = $service->execute($request);
 
+        echo "<pre>";
         print_r($response->data);
-        die(0
-        );
+        echo "</pre>";
+        die();
 
         return $this->view->pick('lihattranskripmahasiswa');
 
