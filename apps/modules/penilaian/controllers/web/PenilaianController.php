@@ -11,7 +11,7 @@ use Siakad\Penilaian\Application\MelihatListKelasRequest;
 use Siakad\Penilaian\Application\MelihatListKelasResponse;
 use Siakad\Penilaian\Application\MelihatListKelasService;
 use Siakad\Penilaian\Application\MelihatNilaiKelasRequest;
-use Siakad\Penilaian\Application\MelihatNilaikelasService;
+use Siakad\Penilaian\Application\MelihatNilaiKelasService;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaRequest;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
 
@@ -84,7 +84,7 @@ class PenilaianController extends Controller
 
         $kelasId = $this->request->get('kelasId');
 
-        $service = new MelihatNilaikelasService($this->nilaiEvaluasiPembelajaranRepository);
+        $service = new MelihatNilaiKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatNilaiKelasRequest($kelasId);
         $response = $service->execute($request);
 
@@ -92,6 +92,9 @@ class PenilaianController extends Controller
         print_r($response->data);
         echo "</pre>";
         die();
+
+        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
+        $this->view->listmhs = $response->data;
 
         return $this->view->pick('lihatnilaikelas');
 
