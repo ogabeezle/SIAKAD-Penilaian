@@ -44,7 +44,7 @@ class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajara
                         on `kelas`.`id` = `nilai_evaluasi_pembelajaran`.`kelas_id` 
                     inner join `mahasiswa` 
                         on `mahasiswa`.`nrp` = `nilai_evaluasi_pembelajaran`.`mahasiswa_id`
-                where `mahasiswa`.`id`=:mahasiswaId
+                where `mahasiswa`.`nrp`=:mahasiswaId
             "),
             'update' => $this->connection->prepare("
                 UPDATE `nilai_evaluasi_pembelajaran` 
@@ -100,12 +100,12 @@ class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajara
         ];
     }
 
-    public function byMahasiswa(Mahasiswa $mahasiswa)
+    public function byMahasiswa($mahasiswaId)
     {
         $statementData = [
-            'mahasiswaId' => $mahasiswa->getNRP()
+            'mahasiswaId' => $mahasiswaId
         ];
-        $result = $this->connection->executePrepare(
+        $result = $this->connection->executePrepared(
             $this->statement['byMahasiswa'],
             $statementData,
             $this->statementTypes['byMahasiswa']

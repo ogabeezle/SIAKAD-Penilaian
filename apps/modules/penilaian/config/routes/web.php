@@ -6,7 +6,7 @@ $router->addGet("/listkelas",[
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
-    'action' => 'listkelas'
+    'action' => 'listKelas'
 ]);
 
 $router->addGet("/komponenpenilaiankelas", [

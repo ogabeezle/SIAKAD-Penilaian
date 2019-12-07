@@ -10,8 +10,8 @@ class MelihatListKelasService{
     }
     public function execute(MelihatListKelasRequest $request){
         $kelasByDosenAndSemester=$this->kelasRepository->byDosenAndSemseter(
-            $request->dosen,
-            $request->semester
+            $request->dosenId,
+            $request->semesterId
         );
         return new MelihatListKelasResponse($kelasByDosenAndSemester);
     }

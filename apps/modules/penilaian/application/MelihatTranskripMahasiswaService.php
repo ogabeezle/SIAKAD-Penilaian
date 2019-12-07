@@ -12,7 +12,7 @@ class MelihatTranskripMahasiswaService{
 
     public function execute(MelihatTranskripMahasiswaRequest $request){
         $transkrip = $this->nilaiRepository->byMahasiswa(
-            $request->mahasiswa
+            $request->mahasiswaId
         );
         return new MelihatTranskripMahasiswaResponse($transkrip);
     }

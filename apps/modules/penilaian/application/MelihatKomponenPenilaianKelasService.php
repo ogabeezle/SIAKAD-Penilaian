@@ -11,7 +11,7 @@ class MelihatKomponenPenilaianKelasService{
 
     public function execute(MelihatKomponenPenilaianKelasRequest $request){
         $nilaiEvaluasiPembelajaranArray=$this->kelasRepository->getKomponen(
-            $request->kelas
+            $request->kelasId
         );
         return new MelihatKomponenPenilaianKelasResponse($nilaiEvaluasiPembelajaranArray);
     }

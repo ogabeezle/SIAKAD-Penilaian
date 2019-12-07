@@ -4,10 +4,10 @@ namespace Siakad\Penilaian\Application;
 use Siakad\Penilaian\Domain\Model\Mahasiswa;
 
 class MelihatTranskripMahasiswaRequest{
-    public $mahasiswa;
+    public $mahasiswaId;
 
-    public function __construct(Mahasiswa $mahasiswa)
+    public function __construct($mahasiswaId)
     {
-        $this->kelas=$mahasiswa;
+        $this->mahasiswaId=$mahasiswaId;
     }
 }

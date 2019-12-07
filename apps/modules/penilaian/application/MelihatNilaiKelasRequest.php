@@ -5,10 +5,10 @@ namespace Siakad\Penilaian\Application;
 use Siakad\Penilaian\Domain\Model\Kelas;
 
 class MelihatNilaiKelasRequest{
-    public $kelas;
+    public $kelasId;
 
-    public function __construct(Kelas $kelas)
+    public function __construct($kelasId)
     {
-        $this->kelas=$kelas;
+        $this->kelasId=$kelasId;
     }
 }

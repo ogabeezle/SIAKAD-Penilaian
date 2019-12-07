@@ -5,13 +5,13 @@ use Siakad\Penilaian\Domain\Model\Dosen;
 use Siakad\Penilaian\Domain\Model\Semester;
 
 class MelihatListKelasRequest{
-    public $dosen;
-    public $semester;
+    public $dosenId;
+    public $semesterId;
 
-    public function __construct(Dosen $dosen,Semester $semester)
+    public function __construct($dosenId,$semesterId)
     {
-        $this->dosen = $dosen;
-        $this->semester = $semester;
+        $this->dosenId = $dosenId;
+        $this->semesterId = $semesterId;
     }
 
 

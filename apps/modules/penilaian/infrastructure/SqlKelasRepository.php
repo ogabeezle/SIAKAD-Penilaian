@@ -91,12 +91,12 @@ class SqlKelasRepository implements KelasRepository{
         // TODO: Implement all() method.
     }
 
-    public function getKomponen(Kelas $kelas)
+    public function getKomponen($kelasid)
     {
         $statementData = [
-            'kelasId' => $kelas->getId()
+            'kelasId' => $kelasid
         ];
-        $result = $this->connection->executePrepare(
+        $result = $this->connection->executePrepared(
             $this->statement['getKomponen'],
             $statementData,
             $this->statementTypes['getKomponen']
@@ -150,11 +150,11 @@ class SqlKelasRepository implements KelasRepository{
         return $komponenArray;
     }
 
-    public function getNilai(Kelas $kelas){
+    public function getNilai($kelasId){
         $statementData = [
-            'kelasId' => $kelas->getId()
+            'kelasId' => $kelasId
         ];
-        $result = $this->connection->executePrepare(
+        $result = $this->connection->executePrepared(
             $this->statement['getNilai'],
             $statementData,
             $this->statementTypes['getNilai']
@@ -197,11 +197,11 @@ class SqlKelasRepository implements KelasRepository{
         }
         return $nilaiArray;
     }
-    public function byDosenAndSemseter(Dosen $dosen, Semester $semester)
+    public function byDosenAndSemseter($dosenId, $semesterId)
     {
         $statementData = [
-            'dosenId' => $dosen->getId(),
-            'semesterId' => $semester->getId()
+            'dosenId' => $dosenId,
+            'semesterId' => $semesterId
         ];
         $result = $this->connection->executePrepared(
             $this->statement['byDosenAndSemester'],

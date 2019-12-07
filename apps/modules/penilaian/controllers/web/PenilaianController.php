@@ -5,9 +5,16 @@ namespace Siakad\Penilaian\Controllers\Web;
 use Phalcon\Mvc\Controller;
 use Phalcon\Di;
 
+use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasRequest;
+use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasService;
 use Siakad\Penilaian\Application\MelihatListKelasRequest;
 use Siakad\Penilaian\Application\MelihatListKelasResponse;
 use Siakad\Penilaian\Application\MelihatListKelasService;
+use Siakad\Penilaian\Application\MelihatNilaiKelasRequest;
+use Siakad\Penilaian\Application\MelihatNilaikelasService;
+use Siakad\Penilaian\Application\MelihatTranskripMahasiswaRequest;
+use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
+
 class PenilaianController extends Controller
 {
 
@@ -21,6 +28,8 @@ class PenilaianController extends Controller
 
     public function listKelasAction()
     {
+//        print_r("adjfhbajsd");
+//        die(0);
         # yang perlu diinject di set di penilaian/config/services.php
         $this->kelasRepository = $this->di->getShared('sql_kelas_repository');
 
@@ -32,7 +41,8 @@ class PenilaianController extends Controller
         # parameter request pake id dosen sama bilangan semester, kalo parameternya class dosen sama class semester model dosen sama semester harus diexpose ke controller
         $request = new MelihatListKelasRequest($dosenId, $semester);
         $response = $service->execute($request);
-
+        print_r($response->data);
+        die(0);
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
         $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester]));
@@ -45,16 +55,18 @@ class PenilaianController extends Controller
     {
 
         # yang perlu diinject di set di penilaian/config/services.php
-        // $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('nama SqlNilaiEvaluasiPembelajaranRepository');
+         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
 
         $dosenId = $this->request->get('dosenId');
-        $kodematkul = $this->request->get('kodeMatkul');
-        $semester = $this->request->get('semester');
+        $kelasId = $this->request->get('kelasId');
 
-        // $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
-        // $request = new MelihatListKelasRequest($dosenId, $semester, $kodematkul);
-        // $response = $service->execute($request)
+         $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
+         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
+         $response = $service->execute($request);
 
+         print_r($response->data);
+         die(0
+         );
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
         $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester, 'kodeMatkul' => $kodematkul]));
@@ -65,7 +77,17 @@ class PenilaianController extends Controller
 
     public function lihatNilaiKelasAction()
     {
+        $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
 
+        $kelasId = $this->request->get('kelasId');
+
+        $service = new MelihatNilaikelasService($this->nilaiEvaluasiPembelajaranRepository);
+        $request = new MelihatNilaiKelasRequest($kelasId);
+        $response = $service->execute($request);
+
+        print_r($response->data);
+        die(0
+        );
 
         return $this->view->pick('lihatnilaikelas');
 
@@ -73,7 +95,19 @@ class PenilaianController extends Controller
 
     public function lihatTranskripMahasiswaAction()
     {
+        $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_nilai_evaluasi_pembelajaran_repository');
 
+        $mahasiswaId = $this->request->get('mahasiswaId');
+
+        $service = new MelihatTranskripMahasiswaService($this->nilaiEvaluasiPembelajaranRepository);
+        $request = new MelihatTranskripMahasiswaRequest($mahasiswaId);
+        print_r($request);
+        print_r($request);
+        $response = $service->execute($request);
+
+        print_r($response->data);
+        die(0
+        );
 
         return $this->view->pick('lihattranskripmahasiswa');
 
