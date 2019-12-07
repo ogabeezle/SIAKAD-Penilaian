@@ -1,6 +1,6 @@
 <?php
 
-namespace Siakad\Scheduling;
+namespace Siakad\Penilaian;
 
 use Phalcon\DiInterface;
 use Phalcon\Loader;
@@ -20,6 +20,8 @@ class Module implements ModuleDefinitionInterface
             'Siakad\Penilaian\Controllers\Api' => __DIR__ . '/controllers/api',
             'Siakad\Penilaian\Controllers\Validators' => __DIR__ . '/controllers/validators',
         ]);
+
+        $loader->register();
     }
 
     public function registerServices(DiInterface $di = null)

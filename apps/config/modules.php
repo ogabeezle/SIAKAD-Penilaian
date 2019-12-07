@@ -16,7 +16,7 @@ return array(
         'webControllerNamespace' => 'Siakad\Penilaian\Controllers\Web',
         'apiControllerNamespace' => 'Siakad\Penilaian\Controllers\Api',
         'className' => 'Siakad\Penilaian\Module',
-        'path' => APP_PATH . '/modules/Penilaian/Module.php',
+        'path' => APP_PATH . '/modules/penilaian/Module.php',
         'defaultRouting' => false,
         'defaultController' => 'Penilaian',
         'defaultAction' => 'index'

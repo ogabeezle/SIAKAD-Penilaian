@@ -1,25 +1,30 @@
 <?php
 
-use Siakad\Scheduling\Infrastructure\SqlJadwalKelasRepository;
+use Siakad\Penilaian\Infrastructure\SqlKelasRepository;
+use Siakad\Penilaian\Infrastructure\SqlEvaluasiPembelajaranRepository;
+use Siakad\Penilaian\Infrastructure\SqlNilaiEvaluasiPembelajaranRepository;
+use Siakad\Penilaian\Infrastructure\SqlSemesterRepository;
 
-$di['voltServiceMail'] = function($view) use ($di) {
+use Phalcon\Mvc\View;
 
-    $config = $di->get('config');
+// $di['voltServiceMail'] = function($view) use ($di) {
 
-    $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
-    if (!is_dir($config->mail->cacheDir)) {
-        mkdir($config->mail->cacheDir);
-    }
+//     $config = $di->get('config');
 
-    $compileAlways = $config->mode == 'DEVELOPMENT' ? true : false;
+//     $volt = new \Phalcon\Mvc\View\Engine\Volt($view, $di);
+//     if (!is_dir($config->mail->cacheDir)) {
+//         mkdir($config->mail->cacheDir);
+//     }
 
-    $volt->setOptions(array(
-        "compiledPath" => $config->mail->cacheDir,
-        "compiledExtension" => ".compiled",
-        "compileAlways" => $compileAlways
-    ));
-    return $volt;
-};
+//     $compileAlways = $config->mode == 'DEVELOPMENT' ? true : false;
+
+//     $volt->setOptions(array(
+//         "compiledPath" => $config->mail->cacheDir,
+//         "compiledExtension" => ".compiled",
+//         "compileAlways" => $compileAlways
+//     ));
+//     return $volt;
+// };
 
 $di['view'] = function () {
     $view = new View();
@@ -34,7 +39,22 @@ $di['view'] = function () {
     return $view;
 };
 
-$di->setShared('sql_jadwal_kelas_repository', function() use ($di) {
-    $repo = new SqlJadwalKelasRepository($di);
+$di->setShared('sql_kelas_repository', function() use ($di) {
+    $repo = new SqlKelasRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_evaluasi_pembelajaran_repository', function() use ($di) {
+    $repo = new SqlEvaluasiPembelajaranRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_nilai_evaluasi_pembelajaran_repository', function() use ($di) {
+    $repo = new SqlNilaiEvaluasiPembelajaranRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_semester_repository', function() use ($di) {
+    $repo = new SqlSemesterRepository($di);
     return $repo;
 });
