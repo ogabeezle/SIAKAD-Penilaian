@@ -22,6 +22,16 @@ SET time_zone = "+00:00";
 -- Database: `penilaian`
 --
 
+START TRANSACTION;
+
+CREATE USER IF NOT EXISTS 'dbuser'@'%' IDENTIFIED BY 'dbpassword';
+GRANT ALL PRIVILEGES ON `penilaian`.* to 'dbuser'@'%';
+FLUSH PRIVILEGES;
+
+DROP DATABASE IF EXISTS `penilaian`;
+CREATE DATABASE `penilaian`;
+USE `penilaian`;
+
 -- --------------------------------------------------------
 
 --
@@ -249,6 +259,7 @@ ALTER TABLE `mata_kuliah`
 --
 ALTER TABLE `semester`
   ADD PRIMARY KEY (`id`);
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

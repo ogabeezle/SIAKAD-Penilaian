@@ -20,7 +20,7 @@
     <tr class="bordered">
         <td class="bordered">List Kelas</td>
         <td class="bordered">
-            <form action="/penilaian/listkelas" method="get">
+            <form action="/listkelas" method="get">
                 <table>
                     <tr>
                         <td>ID Dosen</td>
@@ -41,7 +41,7 @@
     <tr class="bordered">
         <td class="bordered">Komponen Penilaian Kelas</td>
         <td class="bordered">
-            <form action="/penilaian/komponenpenilaiankelas" method="get">
+            <form action="/komponenpenilaiankelas" method="get">
                 <table>
                     <tr>
                         <td>ID Dosen</td>
@@ -62,7 +62,7 @@
     <tr class="bordered">
         <td class="bordered">Lihat Nilai Kelas</td>
         <td class="bordered">
-            <form action="/penilaian/lihatnilaikelas" method="get">
+            <form action="/lihatnilaikelas" method="get">
                 <table>
                     <tr>
                         <td>ID Kelas</td>
@@ -79,7 +79,7 @@
     <tr class="bordered">
         <td class="bordered">Lihat Transkrip Mahasiswa</td>
         <td class="bordered">
-            <form action="/penilaian/lihattranskripmahasiswa" method="get">
+            <form action="/lihattranskripmahasiswa" method="get">
                 <table>
                     <tr>
                         <td>ID Mahasiswa</td>

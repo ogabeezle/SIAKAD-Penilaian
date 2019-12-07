@@ -41,12 +41,15 @@ class PenilaianController extends Controller
         # parameter request pake id dosen sama bilangan semester, kalo parameternya class dosen sama class semester model dosen sama semester harus diexpose ke controller
         $request = new MelihatListKelasRequest($dosenId, $semester);
         $response = $service->execute($request);
+        echo "<pre>";
         print_r($response->data);
-        die(0);
+        echo "</pre>";
+        // die();
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
         $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester]));
-        
+        $this->view->listkelas = $response->data;
+
         return $this->view->pick('listkelas');
 
     }

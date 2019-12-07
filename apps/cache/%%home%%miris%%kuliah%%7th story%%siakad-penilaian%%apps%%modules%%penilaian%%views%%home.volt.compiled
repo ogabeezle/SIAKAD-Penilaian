@@ -48,12 +48,8 @@
                         <td><input type="text" name="dosenId"></td>
                     </tr>
                     <tr>
-                        <td>Semester</td>
-                        <td><input type="text" name="semester"></td>
-                    </tr>
-                    <tr>
-                        <td>Kode Matkul</td>
-                        <td><input type="text" name="kodeMatkul"></td>
+                        <td>ID Kelas</td>
+                        <td><input type="text" name="kelasId"></td>
                     </tr>
                     <tr>
                         <td><button type="submit">Submit</button></td>
@@ -69,16 +65,8 @@
             <form action="/lihatnilaikelas" method="get">
                 <table>
                     <tr>
-                        <td>ID Dosen</td>
-                        <td><input type="text" name="dosenId"></td>
-                    </tr>
-                    <tr>
-                        <td>Semester</td>
-                        <td><input type="text" name="semester"></td>
-                    </tr>
-                    <tr>
-                        <td>Kode Matkul</td>
-                        <td><input type="text" name="kodeMatkul"></td>
+                        <td>ID Kelas</td>
+                        <td><input type="text" name="kelasId"></td>
                     </tr>
                     <tr>
                         <td><button type="submit">Submit</button></td>
