@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+<center>
 <h2>List of (View)Service</h2>
 <table class="bordered">
     
@@ -43,10 +44,6 @@
         <td class="bordered">
             <form action="/komponenpenilaiankelas" method="get">
                 <table>
-                    <tr>
-                        <td>ID Dosen</td>
-                        <td><input type="text" name="dosenId"></td>
-                    </tr>
                     <tr>
                         <td>ID Kelas</td>
                         <td><input type="text" name="kelasId"></td>
@@ -82,7 +79,7 @@
             <form action="/lihattranskripmahasiswa" method="get">
                 <table>
                     <tr>
-                        <td>ID Mahasiswa</td>
+                        <td>ID Mhs</td>
                         <td><input type="text" name="mahasiswaId"></td>
                     </tr>
                     <tr>
@@ -96,4 +93,5 @@
 </table>
 
 </body>
+</center>
 </html>

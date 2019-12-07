@@ -16,11 +16,25 @@ $router->addGet("/komponenpenilaiankelas", [
     'action' => 'komponenpenilaiankelas'
 ]);
 
+$router->addPost("/komponenpenilaiankelas", [
+    'namespace' => $namespace,
+    'module' => 'penilaian',
+    'controller' => 'penilaian',
+    'action' => 'ubahkomponenpenilaiankelas'
+]);
+
 $router->addGet("/lihatnilaikelas", [
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
     'action' => 'lihatnilaikelas'
+]);
+
+$router->addPost("/lihatnilaikelas", [
+    'namespace' => $namespace,
+    'module' => 'penilaian',
+    'controller' => 'penilaian',
+    'action' => 'ubahnilaikelas'
 ]);
 
 $router->addGet("/lihattranskripmahasiswa", [
@@ -37,9 +51,3 @@ $router->addPost("/???", [
     'action' => '???'
 ]);
 
-$router->addPost("/???", [
-    'namespace' => $namespace,
-    'module' => 'penilaian',
-    'controller' => 'penilaian',
-    'action' => '???'
-]);

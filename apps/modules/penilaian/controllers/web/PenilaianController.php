@@ -72,7 +72,7 @@ class PenilaianController extends Controller
         die();
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
-        $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester, 'kodeMatkul' => $kodematkul]));
+        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
         
         return $this->view->pick('komponenpenilaiankelas');
 
@@ -88,10 +88,10 @@ class PenilaianController extends Controller
         $request = new MelihatNilaiKelasRequest($kelasId);
         $response = $service->execute($request);
 
-        echo "<pre>";
-        print_r($response->data);
-        echo "</pre>";
-        die();
+        // echo "<pre>";
+        // print_r($response->data);
+        // echo "</pre>";
+        // die();
 
         $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
         $this->view->listmhs = $response->data;
@@ -108,8 +108,6 @@ class PenilaianController extends Controller
 
         $service = new MelihatTranskripMahasiswaService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatTranskripMahasiswaRequest($mahasiswaId);
-        print_r($request);
-        print_r($request);
         $response = $service->execute($request);
 
         echo "<pre>";
@@ -121,6 +119,14 @@ class PenilaianController extends Controller
 
     }
 
+    public function ubahNilaiKelas()
+    {
 
+    }
+
+    public function ubahKomponenPenilaianKelas()
+    {
+
+    }
 
 }
