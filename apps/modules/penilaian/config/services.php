@@ -1,6 +1,10 @@
 <?php
 
-// use Siakad\Scheduling\Infrastructure\SqlJadwalKelasRepository;
+use Siakad\Penilaian\Infrastructure\SqlKelasRepository;
+use Siakad\Penilaian\Infrastructure\SqlEvaluasiPembelajaranRepository;
+use Siakad\Penilaian\Infrastructure\SqlNilaiEvaluasiPembelajaranRepository;
+use Siakad\Penilaian\Infrastructure\SqlSemesterRepository;
+
 use Phalcon\Mvc\View;
 
 // $di['voltServiceMail'] = function($view) use ($di) {
@@ -35,7 +39,22 @@ $di['view'] = function () {
     return $view;
 };
 
-// $di->setShared('sql_jadwal_kelas_repository', function() use ($di) {
-//     $repo = new SqlJadwalKelasRepository($di);
-//     return $repo;
-// });
+$di->setShared('sql_kelas_repository', function() use ($di) {
+    $repo = new SqlKelasRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_evaluasi_pembelajaran_repository', function() use ($di) {
+    $repo = new SqlEvaluasiPembelajaranRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_nilai_evaluasi_pembelajaran_repository', function() use ($di) {
+    $repo = new SqlNilaiEvaluasiPembelajaranRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_semester_repository', function() use ($di) {
+    $repo = new SqlSemesterRepository($di);
+    return $repo;
+});

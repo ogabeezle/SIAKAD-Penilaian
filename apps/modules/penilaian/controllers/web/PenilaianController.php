@@ -22,16 +22,16 @@ class PenilaianController extends Controller
     public function listKelasAction()
     {
         # yang perlu diinject di set di penilaian/config/services.php
-        // $this->kelasRepository = $this->di->getShared('sql_kelas_repository');
+        $this->kelasRepository = $this->di->getShared('sql_kelas_repository');
 
         # yang liat kelas (misal) butuh id dosen. Buat testing dosenId kubuat get
         $dosenId = $this->request->get('dosenId');
         $semester = $this->request->get('semester');
 
-        // $service = new MelihatListKelasService($this->kelasRepository);
+        $service = new MelihatListKelasService($this->kelasRepository);
         # parameter request pake id dosen sama bilangan semester, kalo parameternya class dosen sama class semester model dosen sama semester harus diexpose ke controller
-        // $request = new MelihatListKelasRequest($dosenId, $semester);
-        // $response = $service->execute($request)
+        $request = new MelihatListKelasRequest($dosenId, $semester);
+        $response = $service->execute($request);
 
         // $this->view->listkelas = $response->data;
         // testing aja, force create object

@@ -1,10 +1,10 @@
 <?php
 
-namespace Siakad\Scheduling\Infrastructure;
+namespace Siakad\Penilaian\Infrastructure;
 
 use Phalcon\Db\Column;
-use Siakad\Scheduling\Domain\Model\Semester;
-use Siakad\Scheduling\Domain\Model\SemesterRepository;
+use Siakad\Penilaian\Domain\Model\Semester;
+use Siakad\Penilaian\Domain\Model\SemesterRepository;
 
 class SqlSemesterRepository implements SemesterRepository
 {
