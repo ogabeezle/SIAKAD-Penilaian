@@ -4,26 +4,39 @@
         border: 1px solid black;
         border-collapse: collapse;
     }
+
+    form{
+        vertical-align: middle;
+        margin: 10px;
+    }
 </style>
-<table>
-    <th>
-        <td>Kode Matkul</td>
-        <td>Nama Matkul</td>
-        <td>Kelas</td>
-        <td>Semester</td>
-        <td>Tahun Ajaran</td>
-        <td>SKS</td>
-        <td>Aksi</td>
-    </th>
+<center>
+<table width="95%">
+    <tr>
+        <td><center>Kode Matkul</center></td>
+        <td><center>Nama Matkul</center></td>
+        <td><center>Kelas</center></td>
+        <td><center>Semester</center></td>
+        <td><center>Tahun Ajaran</center></td>
+        <td><center>SKS</center></td>
+        <td><center>Aksi</center></td>
+    </tr>
     <?php foreach ($listkelas as $kelas) { ?>
     <tr>
-        <td><?= $kelas->mataKuliah->kodeMatkul ?></td>
+        <td><center><?= $kelas->mataKuliah->kodeMatkul ?></center></td>
         <td><?= $kelas->mataKuliah->nama ?></td>
-        <td><?= $kelas->nama ?></td>
-        <td><?= $kelas->semester->semester ?></td>
-        <td><?= $kelas->semester->tahunAjaran ?></td>
-        <td><?= $kelas->mataKuliah->SKS ?></td>
-        <td><a href='/komponenpenilaiankelas?dosenId='>Komponen Penilaian Kelas</a></td>
+        <td><center><?= $kelas->nama ?></center></td>
+        <td><center><?= $kelas->semester->semester ?></center></td>
+        <td><center><?= $kelas->semester->tahunAjaran ?></center></td>
+        <td><center><?= $kelas->mataKuliah->SKS ?></center></td>
+        <td><center>
+            <form action="/komponenpenilaiankelas" method="get">
+                <input value="<?php echo $parameter->dosenId; ?>" type="hidden" name="dosenId">
+                <input value="<?php echo $kelas->id; ?>" type="hidden" name="kelasId">
+                <button type="submit">Komponen Penilaian Kelas</button>
+            </form>
+        </center></td>
     </tr>
     <?php } ?>
 </table>
+</center>
