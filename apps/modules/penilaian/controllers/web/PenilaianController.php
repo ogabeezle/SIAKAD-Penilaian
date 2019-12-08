@@ -58,44 +58,37 @@ class PenilaianController extends Controller
     {
 
         # yang perlu diinject di set di penilaian/config/services.php
-         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
-
+        $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
         $kelasId = $this->request->get('kelasId');
 
         $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
         $response = $service->execute($request);
-        
-        // echo "<pre>";
-        // print_r($response->data);
-        // echo "</pre>";
-        // die();
-        // $this->view->listkelas = $response->data;
-        // testing aja, force create object
+        $this->view->komponenpenilaian = $response->data[0];
+
         $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
-        $this->view->komponenpenilaian = $response[0];
         return $this->view->pick('komponenpenilaiankelas');
 
     }
 
     public function lihatNilaiKelasAction()
     {
+        // show komponen penilaian
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
-
         $kelasId = $this->request->get('kelasId');
 
+        $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
+        $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
+        $response = $service->execute($request);
+        $this->view->komponenpenilaian = $response->data[0];
+
+        $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
         $service = new MelihatNilaiKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatNilaiKelasRequest($kelasId);
-        $response = $service->execute($request);
-
-        // echo "<pre>";
-        // print_r($response->data);
-        // echo "</pre>";
-        // die();
-
-        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
+        $response = $service->execute($request); 
         $this->view->listmhs = $response->data;
-
+        
+        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
         return $this->view->pick('lihatnilaikelas');
 
     }
