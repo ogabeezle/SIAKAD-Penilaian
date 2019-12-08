@@ -103,11 +103,9 @@ class PenilaianController extends Controller
         $request = new MelihatTranskripMahasiswaRequest($mahasiswaId);
         $response = $service->execute($request);
 
-        echo "<pre>";
-        print_r($response->data);
-        echo "</pre>";
-        die();
+        $this->view->nilaitranskrip = $response->data;
 
+        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('lihattranskripmahasiswa');
 
     }

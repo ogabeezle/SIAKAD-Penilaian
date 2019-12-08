@@ -1,3 +1,4 @@
+<center>
 <h1>List Kelas Dosen dengan ID {{ parameter.dosenId }} dan Semester {{ parameter.semester }} </h1>
 <style>
     table, th, tr, td{
@@ -10,7 +11,7 @@
         margin: 10px;
     }
 </style>
-<center>
+
 <table width="95%">
     <tr>
         <td><center>Kode Matkul</center></td>

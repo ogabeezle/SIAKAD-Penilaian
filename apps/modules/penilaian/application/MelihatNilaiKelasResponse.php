@@ -12,10 +12,10 @@ class MelihatNilaiKelasResponse{
 
     public function serialize($data)
     {
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-        die();
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+        // die();
         $ret = [];
         $buffer = [];
         foreach($data as $d){

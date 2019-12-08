@@ -2,7 +2,7 @@
 
 $namespace = "Siakad\Penilaian\Controllers\Web";
 
-$isMikel = true;
+$isMikel = false;
 if($isMikel){
     $prefix = "/penilaian";
 } else {

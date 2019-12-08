@@ -16,6 +16,7 @@
     </style>
 
 <form action="/ubahkomponenpenilaiankelas" method="post"></form>
+<input type="hidden" name="kelasId" value="<?= $parameter->kelasId ?>">
 <table>
     <tr>
         <th width="150px">Nama Evaluasi</th>
