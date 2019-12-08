@@ -28,11 +28,6 @@ class MelihatListKelasResponse{
             array_push($ret, $buffer);
 
         }
-        
-        // echo "<pre>";
-        // print_r(json_decode(json_encode($ret)));
-        // echo "</pre>";
-        // die();
 
         return json_decode(json_encode($ret));
     }

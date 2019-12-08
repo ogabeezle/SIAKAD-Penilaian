@@ -6,6 +6,25 @@ class MelihatNilaiKelasResponse{
 
     public function __construct($data)
     {
+        $data = $this->serialize($data);
         $this->data = $data;
     }
+
+    public function serialize($data)
+    {
+        $ret = [];
+        $buffer = [];
+        foreach($data as $d){
+            $buffer['mahasiswa']['nrp'] = $d->getMahasiswa()->getNrp();
+            $buffer['mahasiswa']['nama'] = $d->getMahasiswa()->getNama();
+            $buffer['nilaiArray'] = $d->getNilaiArray();
+            $buffer['nilaiAngka'] = $d->getNilaiAngka();
+            $buffer['nilaiHuruf'] = $d->getNilaiHuruf();
+
+            array_push($ret, $buffer);
+        }
+
+        return json_decode(json_encode($ret));
+    }
+
 }
