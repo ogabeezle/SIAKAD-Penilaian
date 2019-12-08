@@ -16,6 +16,7 @@ class MelihatKomponenPenilaianKelasResponse{
         $ret = [];
         $buffer = [];
         foreach($data as $d){
+            $buffer['dosenId'] = $d->getDosen()->getId();
             $buffer['namaEvaluasiArray'] = $d->getNamaEvaluasiArray();
             $buffer['bobotEvaluasiArray'] = $d->getBobotEvaluasiArray();
             $buffer['isFixed'] = $d->getIsFixed();

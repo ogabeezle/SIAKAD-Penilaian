@@ -14,6 +14,9 @@ use Siakad\Penilaian\Application\MelihatNilaiKelasRequest;
 use Siakad\Penilaian\Application\MelihatNilaiKelasService;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaRequest;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
+use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianRequest;
+use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianService;
+use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiRequest;
 
 class PenilaianController extends Controller
 {
@@ -56,8 +59,6 @@ class PenilaianController extends Controller
 
     public function komponenPenilaianKelasAction()
     {
-
-        # yang perlu diinject di set di penilaian/config/services.php
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
         $kelasId = $this->request->get('kelasId');
 
@@ -69,6 +70,19 @@ class PenilaianController extends Controller
         $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
         return $this->view->pick('komponenpenilaiankelas');
 
+    }
+
+    public function ubahKomponenPenilaianKelasAction()
+    {
+        $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_evaluasi_pembelajaran_repository');
+        $data = $this->request->get();
+        unset($data['_url']);
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+        $service = new MenyimpanKomponenPenilaianService($this->nilaiEvaluasiPembelajaranRepository);
+        $request = new MenyimpanKomponenPenilaianRequest($data);
+        $response = $service->execute($request);
     }
 
     public function lihatNilaiKelasAction()
@@ -107,19 +121,9 @@ class PenilaianController extends Controller
 
         $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('lihattranskripmahasiswa');
-
     }
 
     public function ubahNilaiKelasAction()
-    {
-        $data = $this->request->get();
-        unset($data['_url']);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
-    }
-
-    public function ubahKomponenPenilaianKelasAction()
     {
         $data = $this->request->get();
         unset($data['_url']);

@@ -15,8 +15,9 @@
         }
     </style>
 
-<form action="/ubahkomponenpenilaiankelas" method="post"></form>
-<input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
+<form action="/penilaian/komponenpenilaiankelas" method="post">
+<input type="text" name="kelasId" value="{{ parameter.kelasId }}">
+<input type="text" name="dosenId" value="{{ komponenpenilaian.dosenId }}">
 <table>
     <tr>
         <th width="150px">Nama Evaluasi</th>
@@ -59,12 +60,16 @@
     </tr>
     <tr>
             <td><center><input type="text" name="namaEvaluasiArray[]" value="{{ komponenpenilaian.namaEvaluasiArray[7] }}"></center></td>
-            <td><center><input type="number" name="bobotEvaluasiArray[]" min="0" max="100" value="{{ komponenpenilaian.bobotEvaluasiArray[7] }}"></center></td> 
+            <td><center><input type="number" name="bobotEvaluasiArray[]" min="0" max="100" value="{{ komponenpenilaian.bobotEvaluasiArray[7] }}"></center></td>
     </tr>
-
+    <tr>
+            <td><center><input type="text" value="isFixed"></center></td>
+            <td><center><input type="boolean" name="isFixed" value="{{ komponenpenilaian.isFixed }}"></center></td>
+    </tr>
     
 </table>
 <br/>
 <button type="submit">Simpan</button>
+</form>
 </form>
 </center>

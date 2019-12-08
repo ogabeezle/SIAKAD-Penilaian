@@ -5,7 +5,7 @@ use Siakad\Penilaian\Domain\Model\EvaluasiPembelajaran;
 
 class MenyimpanKomponenPenilaianRequest{
     public $komponenEvaluasi;
-    public function __construct(EvaluasiPembelajaran $komponenEvaluasi){
+    public function __construct($komponenEvaluasi){
         $this->komponenEvaluasi=$komponenEvaluasi;
     }
 

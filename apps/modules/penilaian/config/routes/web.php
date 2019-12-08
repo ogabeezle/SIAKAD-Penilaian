@@ -9,42 +9,42 @@ if($isMikel){
     $prefix = "";
 }
 
-$router->addGet("$prefix/listkelas",[
+$router->addGet($prefix."/listkelas",[
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
     'action' => 'listKelas'
 ]);
 
-$router->addGet("$prefix/komponenpenilaiankelas", [
+$router->addGet($prefix."/komponenpenilaiankelas", [
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
     'action' => 'komponenpenilaiankelas'
 ]);
 
-$router->addPost("$prefix/komponenpenilaiankelas", [
+$router->addPost($prefix."/komponenpenilaiankelas", [
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
-    'action' => 'ubahkomponenpenilaiankelas'
+    'action' => 'ubahKomponenPenilaianKelas'
 ]);
 
-$router->addGet("$prefix/lihatnilaikelas", [
+$router->addGet($prefix."/lihatnilaikelas", [
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
     'action' => 'lihatnilaikelas'
 ]);
 
-$router->addPost("$prefix/lihatnilaikelas", [
+$router->addPost($prefix."/lihatnilaikelas", [
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',
     'action' => 'ubahnilaikelas'
 ]);
 
-$router->addGet("$prefix/lihattranskripmahasiswa", [
+$router->addGet($prefix."/lihattranskripmahasiswa", [
     'namespace' => $namespace,
     'module' => 'penilaian',
     'controller' => 'penilaian',

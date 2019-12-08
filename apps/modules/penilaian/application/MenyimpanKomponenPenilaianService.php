@@ -14,7 +14,7 @@ class MenyimpanKomponenPenilaianService{
         $transkrip = $this->komponenRepository->save(
             $request->komponenEvaluasi
         );
-        return new MelihatTranskripMahasiswaResponse($transkrip);
+        return new MenyimpanKomponenPenilaianResponse($transkrip);
     }
 
 }

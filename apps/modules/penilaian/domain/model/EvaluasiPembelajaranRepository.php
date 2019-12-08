@@ -2,5 +2,5 @@
 namespace Siakad\Penilaian\Domain\Model;
 
 interface EvaluasiPembelajaranRepository{
-    public function save(EvaluasiPembelajaran $evaluasiPembelajaran);
+    public function save($evaluasiPembelajaran);
 }
