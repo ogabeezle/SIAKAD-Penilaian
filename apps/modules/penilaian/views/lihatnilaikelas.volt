@@ -57,7 +57,7 @@
     <tr>
         <form action="/lihatnilaikelas" method="post">
         <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
-        <input type="hidden" name="nrp" value="{{ evaluasi.mahasiswa.nrp }}">
+        <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <td><center>{{ evaluasi.mahasiswa.nrp }}</center></td>
         <td><center>{{ evaluasi.mahasiswa.nama }}</center></td>
         <td><center><input type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[0] }}"></center></td>

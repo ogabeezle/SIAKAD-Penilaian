@@ -87,10 +87,7 @@ class PenilaianController extends Controller
         $request = new MelihatNilaiKelasRequest($kelasId);
         $response = $service->execute($request); 
         $this->view->listevaluasi = $response->data;
-        // echo "<pre>";
-        // print_r($response->data);
-        // echo "</pre>";
-        // die();
+
         $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
         return $this->view->pick('lihatnilaikelas');
 
@@ -115,14 +112,22 @@ class PenilaianController extends Controller
 
     }
 
-    public function ubahNilaiKelas()
+    public function ubahNilaiKelasAction()
     {
-
+        $data = $this->request->get();
+        unset($data['_url']);
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
     }
 
-    public function ubahKomponenPenilaianKelas()
+    public function ubahKomponenPenilaianKelasAction()
     {
-
+        $data = $this->request->get();
+        unset($data['_url']);
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
     }
 
 }
