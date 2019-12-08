@@ -1,1 +1,16 @@
-<h1>Komponen Kelas <?= $parameter->kodeMatkul ?> Dosen dengan ID <?= $parameter->dosenId ?> dan Semester <?= $parameter->semester ?> </h1>
+<h1>Komponen Kelas dengan ID <?= $parameter->kelasId ?> </h1>
+<table width="95%">
+        <form action="/ubahkomponenpenilaiankelas" method="post"></form>
+        <tr>
+            <td></td>
+            <td><center><?= $debug->nilai[0] ?></center></td>
+            
+            <td>Aksi</td>
+        </tr>
+        <tr>
+            <td>Persentase Nilai</td>
+            <td></td>
+            <td><button type="submit">Simpan</button></td>
+        </tr>
+        </form>
+    </table>

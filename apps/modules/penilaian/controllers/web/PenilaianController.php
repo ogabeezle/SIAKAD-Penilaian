@@ -66,14 +66,14 @@ class PenilaianController extends Controller
         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
         $response = $service->execute($request);
         
-        echo "<pre>";
-        print_r($response->data);
-        echo "</pre>";
-        die();
+        // echo "<pre>";
+        // print_r($response->data);
+        // echo "</pre>";
+        // die();
         // $this->view->listkelas = $response->data;
         // testing aja, force create object
         $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
-        
+        $this->view->komponenpenilaian = $response[0];
         return $this->view->pick('komponenpenilaiankelas');
 
     }
