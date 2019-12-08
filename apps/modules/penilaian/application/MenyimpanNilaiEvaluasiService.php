@@ -13,6 +13,6 @@ class MenyimpanNilaiEvaluasiService{
         $transkrip = $this->nilaiEvaluasiRepository->save(
             $request->nilaiEvaluasi
         );
-        return new MenyimpanNilaiEvaluasiRequest($transkrip);
+        return new MenyimpanNilaiEvaluasiResponse($transkrip);
     }
 }

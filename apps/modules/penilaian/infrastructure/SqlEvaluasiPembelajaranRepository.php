@@ -29,7 +29,7 @@ class SqlEvaluasiPembelajaranRepository implements EvaluasiPembelajaranRepositor
                      `persentase_5`, `nama_evaluasi_6`, `persentase_6`, 
                      `nama_evaluasi_7`, `persentase_7`, `nama_evaluasi_8`, 
                      `persentase_8`, `is_fixed`) 
-                     VALUES (:kelasId,:dosenId,:jumlahPeniliaian,
+                     VALUES (:kelasId,:dosenId,:jumlahPenilaian,
                              :nama1,:bobot1,:nama2,:bobot2,
                              :nama3,:bobot3,:nama4,:bobot4,
                              :nama5,:bobot5,:nama6,:bobot6,

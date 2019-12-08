@@ -17,6 +17,7 @@ use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
 use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianRequest;
 use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianService;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiRequest;
+use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiService;
 
 class PenilaianController extends Controller
 {
@@ -107,6 +108,22 @@ class PenilaianController extends Controller
 
     }
 
+    public function ubahNilaiKelasAction()
+    {
+        $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_nilai_evaluasi_pembelajaran_repository');
+        $data = $this->request->get();
+        unset($data['_url']);
+        echo "<pre>";
+        print_r($data);
+        echo "</pre>";
+        $service = new MenyimpanNilaiEvaluasiService($this->nilaiEvaluasiPembelajaranRepository);
+//        foreach ($data as $each){
+//            print_r($each);
+            $request = new MenyimpanNilaiEvaluasiRequest($data);
+            $response = $service->execute($request);
+//        }
+    }
+
     public function lihatTranskripMahasiswaAction()
     {
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_nilai_evaluasi_pembelajaran_repository');
@@ -121,15 +138,6 @@ class PenilaianController extends Controller
 
         $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('lihattranskripmahasiswa');
-    }
-
-    public function ubahNilaiKelasAction()
-    {
-        $data = $this->request->get();
-        unset($data['_url']);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
     }
 
 }
