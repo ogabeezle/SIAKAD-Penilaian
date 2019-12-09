@@ -12,6 +12,7 @@ use Siakad\Penilaian\Application\MelihatListKelasResponse;
 use Siakad\Penilaian\Application\MelihatListKelasService;
 use Siakad\Penilaian\Application\MelihatNilaiKelasRequest;
 use Siakad\Penilaian\Application\MelihatNilaiKelasService;
+use Siakad\Penilaian\Application\MelihatNilaiService;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaRequest;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
 use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianRequest;
@@ -147,7 +148,9 @@ class PenilaianController extends Controller
 
 //        $id =
         $service = new MelihatNilaiService($this->nilaiRepository);
-        $response = $service->execute($request);
+        $response = $service->execute();
+
+        var_dump($response);
 
         $this->view->listskalanilai = $response->data;
 

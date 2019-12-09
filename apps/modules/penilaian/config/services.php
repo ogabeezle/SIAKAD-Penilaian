@@ -4,6 +4,7 @@ use Siakad\Penilaian\Infrastructure\SqlKelasRepository;
 use Siakad\Penilaian\Infrastructure\SqlEvaluasiPembelajaranRepository;
 use Siakad\Penilaian\Infrastructure\SqlNilaiEvaluasiPembelajaranRepository;
 use Siakad\Penilaian\Infrastructure\SqlSemesterRepository;
+use Siakad\Penilaian\Infrastructure\SqlNilaiRepository;
 
 use Phalcon\Mvc\View;
 
