@@ -16,8 +16,8 @@
     </style>
 
 <form action="/penilaian/komponenpenilaiankelas" method="post">
-<input type="text" name="kelasId" value="<?= $parameter->kelasId ?>">
-<input type="text" name="dosenId" value="<?= $komponenpenilaian->dosenId ?>">
+<input type="hidden" name="kelasId" value="<?= $parameter->kelasId ?>">
+<input type="hidden" name="dosenId" value="<?= $komponenpenilaian->dosenId ?>">
 <table>
     <tr>
         <th width="150px">Nama Evaluasi</th>

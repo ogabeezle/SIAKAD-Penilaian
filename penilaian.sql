@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 07, 2019 at 06:46 AM
+-- Generation Time: Dec 09, 2019 at 06:36 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -21,16 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `penilaian`
 --
-
-START TRANSACTION;
-
-CREATE USER IF NOT EXISTS 'dbuser'@'%' IDENTIFIED BY 'dbpassword';
-GRANT ALL PRIVILEGES ON `penilaian`.* to 'dbuser'@'%';
-FLUSH PRIVILEGES;
-
-DROP DATABASE IF EXISTS `penilaian`;
-CREATE DATABASE `penilaian`;
-USE `penilaian`;
 
 -- --------------------------------------------------------
 
@@ -102,7 +92,8 @@ CREATE TABLE `evaluasi_pembelajaran` (
 --
 
 INSERT INTO `evaluasi_pembelajaran` (`kelas_id`, `dosen_id`, `jumlah_penilaian`, `nama_evaluasi_1`, `persentase_1`, `nama_evaluasi_2`, `persentase_2`, `nama_evaluasi_3`, `persentase_3`, `nama_evaluasi_4`, `persentase_4`, `nama_evaluasi_5`, `persentase_5`, `nama_evaluasi_6`, `persentase_6`, `nama_evaluasi_7`, `persentase_7`, `nama_evaluasi_8`, `persentase_8`, `is_fixed`) VALUES
-('kelas1', 'asd', 100, 'eval1', '13.00', 'eval2', '13.00', 'eval3', '13.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1);
+('kelas1', 'asd', 107, 'UTS', '14.00', 'EAS', '14.00', 'eval3', '14.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1),
+('kelas2', 'asd', 107, 'eval1', '14.00', 'eval2', '14.00', 'eval3', '14.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1);
 
 -- --------------------------------------------------------
 
@@ -151,7 +142,8 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nrp`, `nama`) VALUES
-('asd', 'test');
+('asd', 'test'),
+('ass', 'ass');
 
 -- --------------------------------------------------------
 
@@ -199,7 +191,8 @@ CREATE TABLE `nilai_evaluasi_pembelajaran` (
 --
 
 INSERT INTO `nilai_evaluasi_pembelajaran` (`mahasiswa_id`, `kelas_id`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_4`, `nilai_5`, `nilai_6`, `nilai_7`, `nilai_8`, `nilai_angka`, `nilai_huruf`) VALUES
-('asd', 'kelas1', '80', '80', '80', '80', '80', '80', '80', '80', '80', 'AB');
+('asd', 'kelas1', '90', '80', '80', '80', '80', '80', '80', '80', '80', 'AB'),
+('ass', 'kelas1', '80', '80', '80', '80', '80', '80', '80', '80', '80', 'AB');
 
 -- --------------------------------------------------------
 
@@ -259,7 +252,6 @@ ALTER TABLE `mata_kuliah`
 --
 ALTER TABLE `semester`
   ADD PRIMARY KEY (`id`);
-
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
