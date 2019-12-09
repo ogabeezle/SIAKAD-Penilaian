@@ -24,6 +24,7 @@ class PenilaianController extends Controller
 
     public $kelasRepository;
     public $nilaiEvaluasiPembelajaranRepository;
+    public $nilaiRepository;
 
     public function indexAction()
     {
@@ -139,5 +140,20 @@ class PenilaianController extends Controller
         $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('lihattranskripmahasiswa');
     }
+
+    public function lihatSkalaNilaiAction()
+    {
+        $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
+
+//        $id =
+        $service = new MelihatNilaiService($this->nilaiRepository);
+        $response = $service->execute($request);
+
+        $this->view->listskalanilai = $response->data;
+
+//        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
+        return $this->view->pick('skalanilai');
+    }
+
 
 }

@@ -58,3 +58,8 @@ $di->setShared('sql_semester_repository', function() use ($di) {
     $repo = new SqlSemesterRepository($di);
     return $repo;
 });
+
+$di->setShared('sql_nilai_repository', function() use ($di) {
+    $repo = new SqlNilaiRepository($di);
+    return $repo;
+});
