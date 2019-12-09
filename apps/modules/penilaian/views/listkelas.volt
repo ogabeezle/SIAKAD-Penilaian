@@ -25,9 +25,15 @@
     {% for kelas in listkelas %}
     <tr>
         <td><center>{{ kelas.mataKuliah.kodeMatkul }}</center></td>
-        <td>{{ kelas.mataKuliah.nama }}</td>
+        <td><center>{{ kelas.mataKuliah.nama }}</center></td>
         <td><center>{{ kelas.nama }}</center></td>
-        <td><center>{{ kelas.semester.semester }}</center></td>
+        <td><center>
+        {% if kelas.semester.semester == 0 %}
+            GENAP
+        {% else %}
+            GANJIL
+        {% endif %}
+        </center></td>
         <td><center>{{ kelas.semester.tahunAjaran }}</center></td>
         <td><center>{{ kelas.mataKuliah.SKS }}</center></td>
         <td><center>

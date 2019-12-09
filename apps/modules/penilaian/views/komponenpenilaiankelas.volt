@@ -15,7 +15,7 @@
         }
     </style>
 
-<form action="/penilaian/komponenpenilaiankelas" method="post">
+<form action="/komponenpenilaiankelas" method="post">
 <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
 <input type="hidden" name="dosenId" value="{{ komponenpenilaian.dosenId }}">
 <table>
