@@ -25,7 +25,7 @@
         <td><center>{{ komponenpenilaian.namaEvaluasiArray[6] }}</center></td>
         <td><center>{{ komponenpenilaian.namaEvaluasiArray[7] }}</center></td>
     </tr>
-    <tr>
+    <tr id="persentase">
         <th>Persentase Nilai</th>
         <td><center>{{ komponenpenilaian.bobotEvaluasiArray[0] }}</center></td>
         <td><center>{{ komponenpenilaian.bobotEvaluasiArray[1] }}</center></td>
@@ -56,14 +56,14 @@
     </tr>
     {% for evaluasi in listevaluasi %}
     <tr>
-        <form oninput="reSum(this)" action="/lihatnilaikelas" method="post">
+        <form action="/lihatnilaikelas" method="post">
         <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
         <input type="hidden" name="nilaiHuruf" value="{{ evaluasi.nilaiHuruf }}">
         <td><center>{{ evaluasi.mahasiswa.nrp }}</center></td>
         <td><center>{{ evaluasi.mahasiswa.nama }}</center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[0] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[0] }}"></center></td>
         <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[1] }}"></center></td>
         <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[2] }}"></center></td>
         <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[3] }}"></center></td>
@@ -73,7 +73,6 @@
         <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}" readonly></center></td>
         <td style="width:64px;" ><center>{{ evaluasi.nilaiHuruf }}</center></td>
-        <td><center><button type="submit">Simpan</button></center></td>
         </form>
     </tr>
     {% endfor %}
@@ -82,20 +81,34 @@
 
 <script>
     "use strict";
+
+    function getPersentase(){
+        var node = document.getElementById('persentase').children;
+        var len = node.length;
+        var ret = [];
+        //console.log(node[1].childNodes[0].childNodes[0].wholeText);
+        for(var i = 1; i < len; i+=1){
+            ret.push(parseFloat( node[i].childNodes[0].childNodes[0].wholeText ))
+        }
+        return ret;
+    }
+
     function reSum(node){
-        console.log("test");
+        var percentage = getPersentase();
+        node = node.parentNode.parentNode.parentNode.children[0];
         var sum = 0, buf;
-        var len = node.children.length;
-        var sumNode = node.children[len-1];
-        for(var i = 0; i < len-1; i+=1){
-            buf = parseFloat(node.children[i].value);
+        var len = node.length;
+        var sumNode = node[len-1];
+        for(var i = 4; i < len-1; i+=1){
+            //console.log(percentage[i-4]);
+            //console.log(parseFloat(node[i].value) * percentage[i-4]);
+            buf = parseFloat(node[i].value) * percentage[i-4];
             if(buf == "Nan"){
                 sum = "Nan";
                 break;
             }
             sum += buf;
         }
-        sumNode.value = sum;
-        console.log(sum);
+        sumNode.value = sum/100;
     }
 </script>

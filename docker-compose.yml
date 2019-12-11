@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  db1:
+    container_name: db1
+    hostname: db1
+    image: mysql:5.7.27
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=penilaian
+    mem_limit: 256m
+
+  phalcon:
+    image: mileschou/phalcon:7.3-apache
+    container_name: phalcon
+    hostname: phalcon
+    volumes:
+      - .:/var/www/phalcon
+      - ./000-default.conf:/etc/apache2/sites-available/000-default.conf
+    ports:
+      - 8001:80
