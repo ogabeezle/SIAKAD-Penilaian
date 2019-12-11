@@ -4,6 +4,7 @@ use Siakad\Penilaian\Infrastructure\SqlKelasRepository;
 use Siakad\Penilaian\Infrastructure\SqlEvaluasiPembelajaranRepository;
 use Siakad\Penilaian\Infrastructure\SqlNilaiEvaluasiPembelajaranRepository;
 use Siakad\Penilaian\Infrastructure\SqlSemesterRepository;
+use Siakad\Penilaian\Infrastructure\SqlNilaiRepository;
 
 use Phalcon\Mvc\View;
 
@@ -56,5 +57,10 @@ $di->setShared('sql_nilai_evaluasi_pembelajaran_repository', function() use ($di
 
 $di->setShared('sql_semester_repository', function() use ($di) {
     $repo = new SqlSemesterRepository($di);
+    return $repo;
+});
+
+$di->setShared('sql_nilai_repository', function() use ($di) {
+    $repo = new SqlNilaiRepository($di);
     return $repo;
 });

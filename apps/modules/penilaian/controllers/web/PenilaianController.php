@@ -12,6 +12,7 @@ use Siakad\Penilaian\Application\MelihatListKelasResponse;
 use Siakad\Penilaian\Application\MelihatListKelasService;
 use Siakad\Penilaian\Application\MelihatNilaiKelasRequest;
 use Siakad\Penilaian\Application\MelihatNilaiKelasService;
+use Siakad\Penilaian\Application\MelihatNilaiService;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaRequest;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
 use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianRequest;
@@ -24,6 +25,7 @@ class PenilaianController extends Controller
 
     public $kelasRepository;
     public $nilaiEvaluasiPembelajaranRepository;
+    public $nilaiRepository;
 
     public function indexAction()
     {
@@ -139,5 +141,22 @@ class PenilaianController extends Controller
         $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('lihattranskripmahasiswa');
     }
+
+    public function lihatSkalaNilaiAction()
+    {
+        $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
+
+//        $id =
+        $service = new MelihatNilaiService($this->nilaiRepository);
+        $response = $service->execute();
+
+        var_dump($response);
+
+        $this->view->listskalanilai = $response->data;
+
+//        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
+        return $this->view->pick('skalanilai');
+    }
+
 
 }

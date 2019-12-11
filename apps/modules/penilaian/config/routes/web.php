@@ -51,6 +51,13 @@ $router->addGet($prefix."/lihattranskripmahasiswa", [
     'action' => 'lihattranskripmahasiswa'
 ]);
 
+$router->addGet($prefix."/skalanilai", [
+    'namespace' => $namespace,
+    'module' => 'penilaian',
+    'controller' => 'penilaian',
+    'action' => 'lihatskalanilai'
+]);
+
 $router->addPost("$prefix/???", [
     'namespace' => $namespace,
     'module' => 'penilaian',
