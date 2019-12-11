@@ -90,6 +90,19 @@
         </td>
     </tr>
 
+        <tr class="bordered">
+            <td class="bordered">Lihat Skala Nilai</td>
+            <td class="bordered">
+                <form action="/lihatskalanilai" method="get">
+                    <table>
+                        <tr>
+                            <td><button type="submit">Submit</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+
 </table>
 
 </body>
