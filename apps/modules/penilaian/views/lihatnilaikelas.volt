@@ -10,6 +10,10 @@
         vertical-align: middle;
         margin: 10px;
     }
+    #error-container{
+        border: 1px solid red;
+        background-color: rgb(251, 118, 140);
+    }
 </style>
 
 
@@ -37,6 +41,12 @@
         <td><center>{{ komponenpenilaian.bobotEvaluasiArray[7] }}</center></td>
     </tr>
 </table>
+<br/>
+<div id="error-container">
+{% if isset(error) && error != NULL && error != "" %}
+<strong>{{ error }}</strong>
+{% endif %}
+</div>
 <br/>
 <table width="95%">
     <tr>

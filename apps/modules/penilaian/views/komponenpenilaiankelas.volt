@@ -13,7 +13,17 @@
         input{
             min-height: 40px;
         }
+        #error-container{
+            border: 1px solid red;
+            background-color: rgb(251, 118, 140);
+        }
     </style>
+
+<div id="error-container">
+{% if isset(error) && error != NULL && error != "" %}
+<strong>{{ error }}</strong>
+{% endif %}
+</div>
 
 <form action="/komponenpenilaiankelas" method="post">
 <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
