@@ -17,6 +17,7 @@
 </style>
 
 
+
 <table width="95%">
     <tr>
         <th>Nama Penilaian</th>
@@ -64,6 +65,7 @@
         <th><center>Nilai Huruf</center></th>
         <th><center>Aksi</center></th>
     </tr>
+    {% if isset(listevaluasi) && listevaluasi != NULL && listevaluasi != "" %}
     {% for evaluasi in listevaluasi %}
     <tr>
         <form action="/lihatnilaikelas" method="post">
@@ -86,6 +88,7 @@
         </form>
     </tr>
     {% endfor %}
+    {% endif %}
 </table>
 </center>
 
