@@ -93,7 +93,7 @@ class PenilaianController extends Controller
             $this->flash->success("Komponen Nilai telah Terupdate");
             $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
         } catch (PersentaseKomponenNilaiException $e) {
-            $this->flash->error("Total Komponen Nilai lebih dari 100");
+            $this->flash->error($e);
             $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
         }
     }

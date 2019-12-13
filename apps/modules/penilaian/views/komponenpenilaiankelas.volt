@@ -1,5 +1,5 @@
 <center>
-<h1>Komponen Kelas dengan ID {{kelasId}} </h1>
+<h1>Komponen Kelas dengan ID {{ parameter.kelasId }} </h1>
 <style>
         table, th, tr, td{
             border: 1px solid black;
