@@ -5,6 +5,7 @@ namespace Siakad\Penilaian\Controllers\Web;
 use Phalcon\Mvc\Controller;
 use Phalcon\Di;
 
+use Siakad\Common\Exception\PersentaseKomponenNilaiException;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasRequest;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasService;
 use Siakad\Penilaian\Application\MelihatListKelasRequest;
@@ -19,6 +20,8 @@ use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianRequest;
 use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianService;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiRequest;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiService;
+
+use Phalcon\Http\Response;
 
 class PenilaianController extends Controller
 {
@@ -68,6 +71,7 @@ class PenilaianController extends Controller
         $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
         $response = $service->execute($request);
+        $this->view->error = false;
         $this->view->komponenpenilaian = $response->data[0];
 
         $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
@@ -79,13 +83,19 @@ class PenilaianController extends Controller
     {
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_evaluasi_pembelajaran_repository');
         $data = $this->request->get();
-        unset($data['_url']);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
         $service = new MenyimpanKomponenPenilaianService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MenyimpanKomponenPenilaianRequest($data);
-        $response = $service->execute($request);
+        $this->view->parameter = json_decode(json_encode(['kelasId' => $_POST]));
+        $kelasId = $_POST['kelasId'];
+        try {
+            $service->execute($request);
+            $this->view->error = false;
+            $this->flash->success("Komponen Nilai telah Terupdate");
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+        } catch (PersentaseKomponenNilaiException $e) {
+            $this->flash->error("Total Komponen Nilai lebih dari 100");
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+        }
     }
 
     public function lihatNilaiKelasAction()

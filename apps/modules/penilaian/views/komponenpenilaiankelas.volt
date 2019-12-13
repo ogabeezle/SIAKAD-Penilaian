@@ -1,5 +1,5 @@
 <center>
-<h1>Komponen Kelas dengan ID {{parameter.kelasId}} </h1>
+<h1>Komponen Kelas dengan ID {{kelasId}} </h1>
 <style>
         table, th, tr, td{
             border: 1px solid black;
@@ -13,17 +13,17 @@
         input{
             min-height: 40px;
         }
-        #error-container{
+        .errorMessage{
             border: 1px solid red;
             background-color: rgb(251, 118, 140);
         }
+        .successMessage{
+            border: 1px solid green;
+            background-color: green;
+        }
     </style>
 
-<div id="error-container">
-{% if isset(error) && error != NULL && error != "" %}
-<strong>{{ error }}</strong>
-{% endif %}
-</div>
+{{ flash.output() }}
 
 <form action="/komponenpenilaiankelas" method="post">
 <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">

@@ -7,6 +7,8 @@ use Siakad\Penilaian\Infrastructure\SqlSemesterRepository;
 use Siakad\Penilaian\Infrastructure\SqlNilaiRepository;
 
 use Phalcon\Mvc\View;
+use Phalcon\Flash\Session as FlashSession;
+use Phalcon\Http\Response;
 
 // $di['voltServiceMail'] = function($view) use ($di) {
 
@@ -64,3 +66,17 @@ $di->setShared('sql_nilai_repository', function() use ($di) {
     $repo = new SqlNilaiRepository($di);
     return $repo;
 });
+
+$di->set(
+    'flash',
+    function () {
+        return new FlashSession();
+    }
+);
+
+$di->set(
+    'response',
+    function () {
+        return new Response();
+    }
+);
