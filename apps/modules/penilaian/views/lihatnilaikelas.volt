@@ -10,9 +10,15 @@
         vertical-align: middle;
         margin: 10px;
     }
-    #error-container{
-        border: 1px solid red;
-        background-color: rgb(251, 118, 140);
+    .errorMessage{
+            border: 1px solid red;
+            background-color: rgb(251, 118, 140);
+            width: 20vw;
+    }
+    .successMessage{
+        border: 1px solid green;
+        background-color: rgb(123, 255, 123);
+        width: 20vw;
     }
 </style>
 
@@ -42,6 +48,8 @@
         <td><center>{{ komponenpenilaian.bobotEvaluasiArray[7] }}</center></td>
     </tr>
 </table>
+<br/>
+{{ flash.output() }}
 <br/>
 <table width="95%">
     <tr>
@@ -78,15 +86,15 @@
         <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[6] }}"></center></td>
         <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}" readonly></center></td>
-        <td style="width:64px;" ><center>{{ evaluasi.nilaiHuruf }}</center></td>
+        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiHuruf }}" readonly></center></td>
+        <td><center><button type="submit">Simpan</button></center></td>
         </form>
     </tr>
     {% else %}
     <tr>
-        <td>No Data</td>
+        <td colspan="13">No Data</td>
     </tr>
     {% endfor %}
-    <?php //} ?>
 </table>
 </center>
 
@@ -111,8 +119,6 @@
         var len = node.length;
         var sumNode = node[len-1];
         for(var i = 4; i < len-1; i+=1){
-            //console.log(percentage[i-4]);
-            //console.log(parseFloat(node[i].value) * percentage[i-4]);
             buf = parseFloat(node[i].value) * percentage[i-4];
             if(buf == "Nan"){
                 sum = "Nan";

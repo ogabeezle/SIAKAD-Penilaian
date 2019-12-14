@@ -16,10 +16,12 @@
         .errorMessage{
             border: 1px solid red;
             background-color: rgb(251, 118, 140);
+            width: 20vw;
         }
         .successMessage{
             border: 1px solid green;
             background-color: rgb(123, 255, 123);
+            width: 20vw;
         }
     </style>
 

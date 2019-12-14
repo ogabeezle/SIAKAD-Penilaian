@@ -13,18 +13,19 @@
         input{
             min-height: 40px;
         }
-        #error-container{
+        .errorMessage{
             border: 1px solid red;
             background-color: rgb(251, 118, 140);
+            width: 20vw;
+        }
+        .successMessage{
+            border: 1px solid green;
+            background-color: rgb(123, 255, 123);
+            width: 20vw;
         }
     </style>
 
-
-<div id="error-container">
-{% if isset(error) && error != NULL && error != "" %}
-<strong>{{ error }}</strong>
-{% endif %}
-</div>
+{{ flash.output() }}
 
 <form action="/skalanilai" method="post">
 <table>
@@ -39,6 +40,10 @@
             <td><center>{{ data.nilaiNumerik }}</center></td>
             <td><center><input type="number" name="batasBawah[]" min="0" max="100" value="{{ data.batasBawah }}"></center></td>
             <td><center><input type="number" name="batasAtas[]" min="0" max="100" value="{{ data.batasAtas }}"></center></td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="4">No Data</td>
     </tr>
     {% endfor %}
 </table>
