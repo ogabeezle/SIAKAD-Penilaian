@@ -1,5 +1,5 @@
 <center>
-<h1>Komponen Kelas dengan ID {{ parameter.kelasId }} </h1>
+<h1>Komponen Kelas dengan ID {{ kelasId }} </h1>
 <style>
         table, th, tr, td{
             border: 1px solid black;
@@ -19,14 +19,14 @@
         }
         .successMessage{
             border: 1px solid green;
-            background-color: green;
+            background-color: rgb(123, 255, 123);
         }
     </style>
 
 {{ flash.output() }}
 
 <form action="/komponenpenilaiankelas" method="post">
-<input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
+<input type="hidden" name="kelasId" value="{{ kelasId }}">
 <input type="hidden" name="dosenId" value="{{ komponenpenilaian.dosenId }}">
 <table>
     <tr>

@@ -1,5 +1,5 @@
 <center>
-<h1>List Kelas Dosen dengan ID {{ parameter.dosenId }} dan Semester {{ parameter.semester }} </h1>
+<h1>List Kelas Dosen dengan ID {{ dosenId }} dan Semester {{ semester }} </h1>
 <style>
     table, th, tr, td{
         border: 1px solid black;

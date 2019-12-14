@@ -37,26 +37,18 @@ class PenilaianController extends Controller
 
     public function listKelasAction()
     {
-//        print_r("adjfhbajsd");
-//        die(0);
-        # yang perlu diinject di set di penilaian/config/services.php
         $this->kelasRepository = $this->di->getShared('sql_kelas_repository');
 
-        # yang liat kelas (misal) butuh id dosen. Buat testing dosenId kubuat get
         $dosenId = $this->request->get('dosenId');
         $semester = $this->request->get('semester');
 
         $service = new MelihatListKelasService($this->kelasRepository);
-        # parameter request pake id dosen sama bilangan semester, kalo parameternya class dosen sama class semester model dosen sama semester harus diexpose ke controller
+
         $request = new MelihatListKelasRequest($dosenId, $semester);
         $response = $service->execute($request);
-        // echo "<pre>";
-        // print_r($response->data);
-        // echo "</pre>";
-        // // die();
-        // $this->view->listkelas = $response->data;
-        // testing aja, force create object
-        $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester]));
+
+        $this->view->dosenId = $dosenId;
+        $this->view->semester = $semester;
         $this->view->listkelas = $response->data;
 
         return $this->view->pick('listkelas');
@@ -74,7 +66,7 @@ class PenilaianController extends Controller
         $this->view->error = false;
         $this->view->komponenpenilaian = $response->data[0];
 
-        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
+        $this->view->kelasId = $kelasId;
         return $this->view->pick('komponenpenilaiankelas');
 
     }
@@ -85,7 +77,7 @@ class PenilaianController extends Controller
         $data = $this->request->get();
         $service = new MenyimpanKomponenPenilaianService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MenyimpanKomponenPenilaianRequest($data);
-        $this->view->parameter = json_decode(json_encode(['kelasId' => $_POST]));
+        $this->view->kelasId = $_POST['kelasId'];
         $kelasId = $_POST['kelasId'];
         try {
             $service->execute($request);
@@ -115,7 +107,7 @@ class PenilaianController extends Controller
         $response = $service->execute($request); 
         $this->view->listevaluasi = $response->data;
 
-        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
+        $this->view->kelasId = $kelasId;
         return $this->view->pick('lihatnilaikelas');
 
     }
@@ -148,7 +140,7 @@ class PenilaianController extends Controller
 
         $this->view->nilaitranskrip = $response->data;
 
-        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
+        $this->view->mahasiswaId = $mahasiswaId;
         return $this->view->pick('lihattranskripmahasiswa');
     }
 
@@ -156,15 +148,11 @@ class PenilaianController extends Controller
     {
         $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
 
-//        $id =
         $service = new MelihatNilaiService($this->nilaiRepository);
         $response = $service->execute();
 
-        var_dump($response);
-
         $this->view->listskalanilai = $response->data;
 
-//        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('skalanilai');
     }
 

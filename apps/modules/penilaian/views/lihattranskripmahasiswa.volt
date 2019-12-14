@@ -1,5 +1,5 @@
 <center>
-<h1>lihat transkrip mahasiswa dengan ID {{ parameter.mahasiswaId }} </h1>
+<h1>lihat transkrip mahasiswa dengan ID {{ mahasiswaId }} </h1>
 <style>
     table, th, tr, td{
         border: 1px solid black;

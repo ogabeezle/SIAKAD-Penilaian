@@ -21,12 +21,6 @@
 <center>
 <h2>List of (View)Service</h2>
 
-<div id="error-container">
-{% if isset(error) && error != NULL && error != "" %}
-<strong>{{ error }}</strong>
-{% endif %}
-</div>
-
 <table class="bordered">
     
     <tr class="bordered">

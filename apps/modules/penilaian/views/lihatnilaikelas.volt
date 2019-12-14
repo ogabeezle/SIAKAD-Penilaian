@@ -1,5 +1,5 @@
 <center>
-<h1>Lihat nilai kelas dengan ID {{ parameter.kelasId }} </h1>
+<h1>Lihat nilai kelas dengan ID {{ kelasId }} </h1>
 <style>
     table, th, tr, td{
         border: 1px solid black;
@@ -43,12 +43,6 @@
     </tr>
 </table>
 <br/>
-<div id="error-container">
-{% if isset(error) && error != NULL && error != "" %}
-<strong>{{ error }}</strong>
-{% endif %}
-</div>
-<br/>
 <table width="95%">
     <tr>
         <th><center>NRP</center></th>
@@ -65,11 +59,11 @@
         <th><center>Nilai Huruf</center></th>
         <th><center>Aksi</center></th>
     </tr>
-    {% if isset(listevaluasi) && listevaluasi != NULL && listevaluasi != "" %}
+    
     {% for evaluasi in listevaluasi %}
     <tr>
         <form action="/lihatnilaikelas" method="post">
-        <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
+        <input type="hidden" name="kelasId" value="{{ kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
         <input type="hidden" name="nilaiHuruf" value="{{ evaluasi.nilaiHuruf }}">
@@ -87,8 +81,12 @@
         <td style="width:64px;" ><center>{{ evaluasi.nilaiHuruf }}</center></td>
         </form>
     </tr>
+    {% else %}
+    <tr>
+        <td>No Data</td>
+    </tr>
     {% endfor %}
-    {% endif %}
+    <?php //} ?>
 </table>
 </center>
 
