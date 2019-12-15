@@ -5,6 +5,8 @@ namespace Siakad\Penilaian\Controllers\Web;
 use Phalcon\Mvc\Controller;
 use Phalcon\Di;
 
+use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
+use Siakad\Common\Exception\NilaiSudahPermanenException;
 use Siakad\Common\Exception\PersentaseKomponenNilaiException;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasRequest;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasService;
@@ -85,7 +87,10 @@ class PenilaianController extends Controller
             $this->flash->success("Komponen Nilai telah Terupdate");
             $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
         } catch (PersentaseKomponenNilaiException $e) {
-            $this->flash->error($e);
+            $this->flash->error($e->getMessage());
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+        }catch(NilaiSudahPermanenException $e){
+            $this->flash->error($e->getMessage());
             $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
         }
     }
@@ -116,16 +121,19 @@ class PenilaianController extends Controller
     {
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_nilai_evaluasi_pembelajaran_repository');
         $data = $this->request->get();
-        unset($data['_url']);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
         $service = new MenyimpanNilaiEvaluasiService($this->nilaiEvaluasiPembelajaranRepository);
-//        foreach ($data as $each){
-//            print_r($each);
-            $request = new MenyimpanNilaiEvaluasiRequest($data);
-            $response = $service->execute($request);
-//        }
+        $request = new MenyimpanNilaiEvaluasiRequest($data);
+        $this->view->kelasId = $_POST['kelasId'];
+        $kelasId = $_POST['kelasId'];
+        try {
+            $service->execute($request);
+            $this->view->error = false;
+            $this->flash->success("Komponen Nilai telah Terupdate");
+            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId);
+        } catch(NilaiKomponenMahasiswaException $e){
+            $this->flash->error($e->getMessage());
+            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId);
+        }
     }
 
     public function lihatTranskripMahasiswaAction()

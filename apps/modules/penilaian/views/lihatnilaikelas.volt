@@ -70,7 +70,7 @@
     
     {% for evaluasi in listevaluasi %}
     <tr>
-        <form action="/lihatnilaikelas" method="post">
+        <form action="/penilaian/lihatnilaikelas" method="post">
         <input type="hidden" name="kelasId" value="{{ kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
@@ -115,6 +115,7 @@
     function reSum(node){
         var percentage = getPersentase();
         node = node.parentNode.parentNode.parentNode.children[0];
+        console.log(node);
         var sum = 0, buf;
         var len = node.length;
         var sumNode = node[len-1];
