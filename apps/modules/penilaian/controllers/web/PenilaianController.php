@@ -8,6 +8,7 @@ use Phalcon\Di;
 use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
 use Siakad\Common\Exception\NilaiSudahPermanenException;
 use Siakad\Common\Exception\PersentaseKomponenNilaiException;
+use Siakad\Common\Exception\SkalaNilaiException;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasRequest;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasService;
 use Siakad\Penilaian\Application\MelihatListKelasRequest;
@@ -24,6 +25,8 @@ use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiRequest;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiService;
 
 use Phalcon\Http\Response;
+use Siakad\Penilaian\Application\MenyimpanNilaiRequest;
+use Siakad\Penilaian\Application\MenyimpanNilaiService;
 
 class PenilaianController extends Controller
 {
@@ -106,6 +109,11 @@ class PenilaianController extends Controller
         $response = $service->execute($request);
         $this->view->komponenpenilaian = $response->data[0];
 
+        $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
+        $service = new MelihatNilaiService($this->nilaiRepository);
+        $response = $service->execute();
+        $this->view->listskalanilai = $response->data;
+
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_kelas_repository');
         $service = new MelihatNilaiKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatNilaiKelasRequest($kelasId);
@@ -158,10 +166,29 @@ class PenilaianController extends Controller
 
         $service = new MelihatNilaiService($this->nilaiRepository);
         $response = $service->execute();
-
+        echo '<pre>';
+        print_r($response->data);
+        echo '</pre>';
+//        die(0);
         $this->view->listskalanilai = $response->data;
 
         return $this->view->pick('skalanilai');
+    }
+
+    public function ubahSkalaNilaiAction(){
+        $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
+        $data = $this->request->get();
+        $service = new MenyimpanNilaiService($this->nilaiRepository);
+        $request = new MenyimpanNilaiRequest($data);
+        try {
+            $service->execute($request);
+            $this->view->error = false;
+            $this->flash->success("Skala Nilai telah Terupdate");
+            $this->response->redirect("/lihatskalanilai");
+        } catch(SkalaNilaiException $e){
+            $this->flash->error($e->getMessage());
+            $this->response->redirect("/lihatskalanilai");
+        }
     }
 
 

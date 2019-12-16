@@ -19,15 +19,13 @@ class SqlNilaiRepository implements NilaiRepository
         $this->connection = $di->get('db');
         $this->statement = array(
             'save' => $this->connection->prepare("
-                INSERT INTO `nilai`(`id`, `nilai_numerik`, `nilai_huruf`, `batas_atas`, `batas_bawah`) 
-                VALUES (:id,:nilaiNumerik,:nilaiHuruf,:batasAtas,:batasBawah)
+                INSERT INTO `nilai`(`id`, `batas_atas`, `batas_bawah`) 
+                VALUES (:id,:batasAtas,:batasBawah)
                 
             "),
             'update' => $this->connection->prepare("
                 UPDATE `nilai` 
-                SET `nilai_numerik`=:nilaiNumerik,
-                  `nilai_huruf`=:nilaiHuruf,
-                  `batas_atas`=:batasAtas,
+                SET `batas_atas`=:batasAtas,
                   `batas_bawah`=:batasBawah 
                 WHERE `nilai`.`id`=:id
             "),
@@ -43,15 +41,11 @@ class SqlNilaiRepository implements NilaiRepository
         $this->statementTypes = [
             'save' => [
                 'id' => Column::BIND_PARAM_STR,
-                'nilaiNumerik' => Column::BIND_PARAM_DECIMAL,
-                'nilaiHuruf' => Column::BIND_PARAM_STR,
                 'batasAtas' => Column::BIND_PARAM_DECIMAL,
                 'batasBawah' => Column::BIND_PARAM_DECIMAL
             ],
             'update' => [
                 'id' => Column::BIND_PARAM_STR,
-                'nilaiNumerik' => Column::BIND_PARAM_DECIMAL,
-                'nilaiHuruf' => Column::BIND_PARAM_STR,
                 'batasAtas' => Column::BIND_PARAM_DECIMAL,
                 'batasBawah' => Column::BIND_PARAM_DECIMAL
             ],
@@ -85,14 +79,13 @@ class SqlNilaiRepository implements NilaiRepository
 
     public function save($nilai)
     {
+        var_dump($nilai);
+//        die(0);
         $checkStatementData = [
-            'mahasiswaId' => $nilai['id']
+            'id' => $nilai['id']
         ];
         $statementData = [
             'id' => $nilai['id'],
-            'kelasId' => $nilai['kelasId'],
-            'nilaiNumerik' => $nilai['nilaiNumerik'],
-            'nilaiHuruf' => $nilai['nilaiHuruf'],
             'batasAtas' => $nilai['batasAtas'],
             'batasBawah' => $nilai['batasBawah']
         ];

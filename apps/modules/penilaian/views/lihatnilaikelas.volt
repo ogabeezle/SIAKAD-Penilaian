@@ -22,7 +22,26 @@
     }
 </style>
 
-
+<table>
+    <tr>
+        <th width="150px">Nilai Huruf</th>
+        <th>Nilai Angka</th>
+        <th colspan="2">Rentang Nilai</th>
+    </tr>
+    {% for data in listskalanilai %}
+    <tr>
+            <td><center>{{ data.nilaiHuruf }}</center></td>
+            <td><center>{{ data.nilaiNumerik }}</center></td>
+            <td><center>{{ data.batasBawah }}</center></td>
+            <td><center>{{ data.batasAtas }}</center></td>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="4">No Data</td>
+    </tr>
+    {% endfor %}
+</table>
+<br/>
 
 <table width="95%">
     <tr>
@@ -95,7 +114,6 @@
         <td colspan="13">No Data</td>
     </tr>
     {% endfor %}
-    {% endif %}
 </table>
 </center>
 

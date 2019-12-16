@@ -51,4 +51,11 @@ $router->addGet("/lihatskalanilai", [
     'action' => 'lihatskalanilai'
 ]);
 
+$router->addPost("/lihatskalanilai", [
+    'namespace' => $namespace,
+    'module' => 'penilaian',
+    'controller' => 'penilaian',
+    'action' => 'ubahskalanilai'
+]);
+
 

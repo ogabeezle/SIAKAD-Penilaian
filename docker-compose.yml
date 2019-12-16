@@ -9,6 +9,8 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=penilaian
     mem_limit: 256m
+    ports:
+    - 3306:3306
 
   phalcon:
     image: mileschou/phalcon:7.3-apache

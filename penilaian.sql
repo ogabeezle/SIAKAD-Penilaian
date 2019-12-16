@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 09, 2019 at 06:36 AM
+-- Generation Time: Dec 15, 2019 at 04:02 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -21,7 +21,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `penilaian`
 --
-
+CREATE DATABASE IF NOT EXISTS `penilaian`;
+USE `penilaian`;
 -- --------------------------------------------------------
 
 --
@@ -168,6 +169,27 @@ INSERT INTO `mata_kuliah` (`id`, `nama`, `kode_matkul`, `sks`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `nilai`
+--
+
+CREATE TABLE `nilai` (
+  `id` varchar(50) NOT NULL,
+  `nilai_numerik` decimal(4,2) NOT NULL,
+  `nilai_huruf` varchar(5) NOT NULL,
+  `batas_atas` decimal(5,2) NOT NULL,
+  `batas_bawah` decimal(5,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(1,4,'A',100,86);
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(2,3.5,'AB',86,80);
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(3,3,'B',80,75);
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(4,2.5,'BC',75,61);
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(5,2,'C',61,55);
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(6,1,'D',55,50);
+insert into `nilai`(`id`,`nilai_numerik`,`nilai_huruf`,`batas_atas`,`batas_bawah`) values(7,0,'E',50,0);
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `nilai_evaluasi_pembelajaran`
 --
 
@@ -191,7 +213,7 @@ CREATE TABLE `nilai_evaluasi_pembelajaran` (
 --
 
 INSERT INTO `nilai_evaluasi_pembelajaran` (`mahasiswa_id`, `kelas_id`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_4`, `nilai_5`, `nilai_6`, `nilai_7`, `nilai_8`, `nilai_angka`, `nilai_huruf`) VALUES
-('asd', 'kelas1', '90', '80', '80', '80', '80', '80', '80', '80', '80', 'AB'),
+('asd', 'kelas1', '90', '80', '80', '80', '80', '80', '80', '80', '0', 'AB'),
 ('ass', 'kelas1', '80', '80', '80', '80', '80', '80', '80', '80', '80', 'AB');
 
 -- --------------------------------------------------------
@@ -245,6 +267,12 @@ ALTER TABLE `mahasiswa`
 -- Indexes for table `mata_kuliah`
 --
 ALTER TABLE `mata_kuliah`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `nilai`
+--
+ALTER TABLE `nilai`
   ADD PRIMARY KEY (`id`);
 
 --
