@@ -10,11 +10,6 @@
         vertical-align: middle;
         margin: 10px;
     }
-<<<<<<< HEAD
-    #error-container{
-        border: 1px solid red;
-        background-color: rgb(251, 118, 140);
-=======
     .errorMessage{
             border: 1px solid red;
             background-color: rgb(251, 118, 140);
@@ -24,7 +19,6 @@
         border: 1px solid green;
         background-color: rgb(123, 255, 123);
         width: 20vw;
->>>>>>> implement-exception
     }
 </style>
 
