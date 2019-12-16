@@ -10,6 +10,16 @@
         vertical-align: middle;
         margin: 10px;
     }
+    .errorMessage{
+            border: 1px solid red;
+            background-color: rgb(251, 118, 140);
+            width: 20vw;
+    }
+    .successMessage{
+        border: 1px solid green;
+        background-color: rgb(123, 255, 123);
+        width: 20vw;
+    }
 </style>
 
 <table width="95%">
@@ -22,7 +32,7 @@
         <td><center>SKS</center></td>
         <td><center>Aksi</center></td>
     </tr>
-    <?php foreach ($listkelas as $kelas) { ?>
+    <?php $v181541013883674431681iterated = false; ?><?php foreach ($listkelas as $kelas) { ?><?php $v181541013883674431681iterated = true; ?>
     <tr>
         <td><center><?= $kelas->mataKuliah->kodeMatkul ?></center></td>
         <td><center><?= $kelas->mataKuliah->nama ?></center></td>
@@ -42,6 +52,10 @@
                 <button type="submit">Komponen Penilaian Kelas</button>
             </form>
         </center></td>
+    </tr>
+    <?php } if (!$v181541013883674431681iterated) { ?>
+    <tr>
+        <td colspan="7">No Data</td>
     </tr>
     <?php } ?>
 </table>

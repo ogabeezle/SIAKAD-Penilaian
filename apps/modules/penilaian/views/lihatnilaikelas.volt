@@ -70,7 +70,7 @@
     
     {% for evaluasi in listevaluasi %}
     <tr>
-        <form action="/penilaian/lihatnilaikelas" method="post">
+        <form action="/lihatnilaikelas" method="post">
         <input type="hidden" name="kelasId" value="{{ kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
@@ -78,13 +78,13 @@
         <td><center>{{ evaluasi.mahasiswa.nrp }}</center></td>
         <td><center>{{ evaluasi.mahasiswa.nama }}</center></td>
         <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[0] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[1] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[2] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[3] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[4] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[5] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[6] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[1] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[2] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[3] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[4] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[5] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[6] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}" readonly></center></td>
         <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiHuruf }}" readonly></center></td>
         <td><center><button type="submit">Simpan</button></center></td>
@@ -115,12 +115,13 @@
     function reSum(node){
         var percentage = getPersentase();
         node = node.parentNode.parentNode.parentNode.children[0];
-        console.log(node);
         var sum = 0, buf;
         var len = node.length;
-        var sumNode = node[len-1];
-        for(var i = 4; i < len-1; i+=1){
+        var sumNode = node[len-3];
+        console.log(sumNode);
+        for(var i = 4; i < len-3; i+=1){
             buf = parseFloat(node[i].value) * percentage[i-4];
+            // console.log(node[i]);
             if(buf == "Nan"){
                 sum = "Nan";
                 break;
