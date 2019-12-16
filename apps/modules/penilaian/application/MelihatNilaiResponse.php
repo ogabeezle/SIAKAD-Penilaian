@@ -27,10 +27,10 @@ class MelihatNilaiResponse
             array_push($ret, $buffer);
         }
 
-        echo "<pre>";
-        print_r($ret);
-        echo "</pre>";
-        die();
+        // echo "<pre>";
+        // print_r($ret);
+        // echo "</pre>";
+        // die();
 
         return json_decode(json_encode($ret));
     }

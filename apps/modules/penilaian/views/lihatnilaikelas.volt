@@ -1,5 +1,5 @@
 <center>
-<h1>Lihat nilai kelas dengan ID {{ parameter.kelasId }} </h1>
+<h1>Lihat nilai kelas dengan ID {{ kelasId }} </h1>
 <style>
     table, th, tr, td{
         border: 1px solid black;
@@ -10,9 +10,21 @@
         vertical-align: middle;
         margin: 10px;
     }
+<<<<<<< HEAD
     #error-container{
         border: 1px solid red;
         background-color: rgb(251, 118, 140);
+=======
+    .errorMessage{
+            border: 1px solid red;
+            background-color: rgb(251, 118, 140);
+            width: 20vw;
+    }
+    .successMessage{
+        border: 1px solid green;
+        background-color: rgb(123, 255, 123);
+        width: 20vw;
+>>>>>>> implement-exception
     }
 </style>
 
@@ -43,11 +55,7 @@
     </tr>
 </table>
 <br/>
-<div id="error-container">
-{% if isset(error) && error != NULL && error != "" %}
-<strong>{{ error }}</strong>
-{% endif %}
-</div>
+{{ flash.output() }}
 <br/>
 <table width="95%">
     <tr>
@@ -65,27 +73,32 @@
         <th><center>Nilai Huruf</center></th>
         <th><center>Aksi</center></th>
     </tr>
-    {% if isset(listevaluasi) && listevaluasi != NULL && listevaluasi != "" %}
+    
     {% for evaluasi in listevaluasi %}
     <tr>
         <form action="/lihatnilaikelas" method="post">
-        <input type="hidden" name="kelasId" value="{{ parameter.kelasId }}">
+        <input type="hidden" name="kelasId" value="{{ kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
         <input type="hidden" name="nilaiHuruf" value="{{ evaluasi.nilaiHuruf }}">
         <td><center>{{ evaluasi.mahasiswa.nrp }}</center></td>
         <td><center>{{ evaluasi.mahasiswa.nama }}</center></td>
         <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[0] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[1] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[2] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[3] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[4] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[5] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[6] }}"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[1] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[2] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[3] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[4] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[5] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[6] }}"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}" readonly></center></td>
-        <td style="width:64px;" ><center>{{ evaluasi.nilaiHuruf }}</center></td>
+        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiHuruf }}" readonly></center></td>
+        <td><center><button type="submit">Simpan</button></center></td>
         </form>
+    </tr>
+    {% else %}
+    <tr>
+        <td colspan="13">No Data</td>
     </tr>
     {% endfor %}
     {% endif %}
@@ -111,11 +124,11 @@
         node = node.parentNode.parentNode.parentNode.children[0];
         var sum = 0, buf;
         var len = node.length;
-        var sumNode = node[len-1];
-        for(var i = 4; i < len-1; i+=1){
-            //console.log(percentage[i-4]);
-            //console.log(parseFloat(node[i].value) * percentage[i-4]);
+        var sumNode = node[len-3];
+        console.log(sumNode);
+        for(var i = 4; i < len-3; i+=1){
             buf = parseFloat(node[i].value) * percentage[i-4];
+            // console.log(node[i]);
             if(buf == "Nan"){
                 sum = "Nan";
                 break;

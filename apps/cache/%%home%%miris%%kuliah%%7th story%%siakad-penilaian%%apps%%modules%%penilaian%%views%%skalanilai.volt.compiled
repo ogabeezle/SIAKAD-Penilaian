@@ -25,7 +25,7 @@
         }
     </style>
 
-{{ flash.output() }}
+<?= $this->flash->output() ?>
 
 <form action="/skalanilai" method="post">
 <table>
@@ -34,18 +34,18 @@
         <th>Nilai Angka</th>
         <th colspan="2">Rentang Nilai</th>
     </tr>
-    {% for data in listskalanilai %}
+    <?php $v96551547419324636931iterated = false; ?><?php foreach ($listskalanilai as $data) { ?><?php $v96551547419324636931iterated = true; ?>
     <tr>
-            <td><center>{{ data.nilaiHuruf }}</center></td>
-            <td><center>{{ data.nilaiNumerik }}</center></td>
-            <td><center><input type="number" name="batasBawah[]" min="0" max="100" value="{{ data.batasBawah }}"></center></td>
-            <td><center><input type="number" name="batasAtas[]" min="0" max="100" value="{{ data.batasAtas }}"></center></td>
+            <td><center><?= $data->nilaiHuruf ?></center></td>
+            <td><center><?= $data->nilaiNumerik ?></center></td>
+            <td><center><input type="number" name="batasBawah[]" min="0" max="100" value="<?= $data->batasBawah ?>"></center></td>
+            <td><center><input type="number" name="batasAtas[]" min="0" max="100" value="<?= $data->batasAtas ?>"></center></td>
     </tr>
-    {% else %}
+    <?php } if (!$v96551547419324636931iterated) { ?>
     <tr>
         <td colspan="4">No Data</td>
     </tr>
-    {% endfor %}
+    <?php } ?>
 </table>
 <br/>
 <button type="submit">Simpan</button>

@@ -5,6 +5,9 @@ namespace Siakad\Penilaian\Controllers\Web;
 use Phalcon\Mvc\Controller;
 use Phalcon\Di;
 
+use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
+use Siakad\Common\Exception\NilaiSudahPermanenException;
+use Siakad\Common\Exception\PersentaseKomponenNilaiException;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasRequest;
 use Siakad\Penilaian\Application\MelihatKomponenPenilaianKelasService;
 use Siakad\Penilaian\Application\MelihatListKelasRequest;
@@ -20,6 +23,8 @@ use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianService;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiRequest;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiService;
 
+use Phalcon\Http\Response;
+
 class PenilaianController extends Controller
 {
 
@@ -34,26 +39,18 @@ class PenilaianController extends Controller
 
     public function listKelasAction()
     {
-//        print_r("adjfhbajsd");
-//        die(0);
-        # yang perlu diinject di set di penilaian/config/services.php
         $this->kelasRepository = $this->di->getShared('sql_kelas_repository');
 
-        # yang liat kelas (misal) butuh id dosen. Buat testing dosenId kubuat get
         $dosenId = $this->request->get('dosenId');
         $semester = $this->request->get('semester');
 
         $service = new MelihatListKelasService($this->kelasRepository);
-        # parameter request pake id dosen sama bilangan semester, kalo parameternya class dosen sama class semester model dosen sama semester harus diexpose ke controller
+
         $request = new MelihatListKelasRequest($dosenId, $semester);
         $response = $service->execute($request);
-        // echo "<pre>";
-        // print_r($response->data);
-        // echo "</pre>";
-        // // die();
-        // $this->view->listkelas = $response->data;
-        // testing aja, force create object
-        $this->view->parameter = json_decode(json_encode(['dosenId' => $dosenId, 'semester' => $semester]));
+
+        $this->view->dosenId = $dosenId;
+        $this->view->semester = $semester;
         $this->view->listkelas = $response->data;
 
         return $this->view->pick('listkelas');
@@ -68,9 +65,10 @@ class PenilaianController extends Controller
         $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
         $response = $service->execute($request);
+        $this->view->error = false;
         $this->view->komponenpenilaian = $response->data[0];
 
-        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
+        $this->view->kelasId = $kelasId;
         return $this->view->pick('komponenpenilaiankelas');
 
     }
@@ -79,13 +77,22 @@ class PenilaianController extends Controller
     {
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_evaluasi_pembelajaran_repository');
         $data = $this->request->get();
-        unset($data['_url']);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
         $service = new MenyimpanKomponenPenilaianService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MenyimpanKomponenPenilaianRequest($data);
-        $response = $service->execute($request);
+        $this->view->kelasId = $_POST['kelasId'];
+        $kelasId = $_POST['kelasId'];
+        try {
+            $service->execute($request);
+            $this->view->error = false;
+            $this->flash->success("Komponen Nilai telah Terupdate");
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+        } catch (PersentaseKomponenNilaiException $e) {
+            $this->flash->error($e->getMessage());
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+        }catch(NilaiSudahPermanenException $e){
+            $this->flash->error($e->getMessage());
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+        }
     }
 
     public function lihatNilaiKelasAction()
@@ -105,7 +112,7 @@ class PenilaianController extends Controller
         $response = $service->execute($request); 
         $this->view->listevaluasi = $response->data;
 
-        $this->view->parameter = json_decode(json_encode(['kelasId' => $kelasId]));
+        $this->view->kelasId = $kelasId;
         return $this->view->pick('lihatnilaikelas');
 
     }
@@ -114,16 +121,19 @@ class PenilaianController extends Controller
     {
         $this->nilaiEvaluasiPembelajaranRepository = $this->di->getShared('sql_nilai_evaluasi_pembelajaran_repository');
         $data = $this->request->get();
-        unset($data['_url']);
-        echo "<pre>";
-        print_r($data);
-        echo "</pre>";
         $service = new MenyimpanNilaiEvaluasiService($this->nilaiEvaluasiPembelajaranRepository);
-//        foreach ($data as $each){
-//            print_r($each);
-            $request = new MenyimpanNilaiEvaluasiRequest($data);
-            $response = $service->execute($request);
-//        }
+        $request = new MenyimpanNilaiEvaluasiRequest($data);
+        $this->view->kelasId = $_POST['kelasId'];
+        $kelasId = $_POST['kelasId'];
+        try {
+            $service->execute($request);
+            $this->view->error = false;
+            $this->flash->success("Komponen Nilai telah Terupdate");
+            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId);
+        } catch(NilaiKomponenMahasiswaException $e){
+            $this->flash->error($e->getMessage());
+            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId);
+        }
     }
 
     public function lihatTranskripMahasiswaAction()
@@ -138,7 +148,7 @@ class PenilaianController extends Controller
 
         $this->view->nilaitranskrip = $response->data;
 
-        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
+        $this->view->mahasiswaId = $mahasiswaId;
         return $this->view->pick('lihattranskripmahasiswa');
     }
 
@@ -146,15 +156,11 @@ class PenilaianController extends Controller
     {
         $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
 
-//        $id =
         $service = new MelihatNilaiService($this->nilaiRepository);
         $response = $service->execute();
 
-        var_dump($response);
-
         $this->view->listskalanilai = $response->data;
 
-//        $this->view->parameter = json_decode(json_encode(['mahasiswaId' => $mahasiswaId]));
         return $this->view->pick('skalanilai');
     }
 

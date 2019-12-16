@@ -86,10 +86,6 @@ class SqlKelasRepository implements KelasRepository{
             ]
         ];
     }
-    public function all()
-    {
-        // TODO: Implement all() method.
-    }
 
     public function getKomponen($kelasid)
     {

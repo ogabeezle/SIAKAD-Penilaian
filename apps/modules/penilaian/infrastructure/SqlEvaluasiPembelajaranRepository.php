@@ -3,6 +3,7 @@ namespace Siakad\Penilaian\Infrastructure;
 
 use Phalcon\Db\Column;
 use Phalcon\Di;
+use Siakad\Common\Exception\NilaiSudahPermanenException;
 use Siakad\Penilaian\Domain\Model\EvaluasiPembelajaran;
 use Siakad\Penilaian\Domain\Model\EvaluasiPembelajaranRepository;
 
@@ -139,11 +140,12 @@ class SqlEvaluasiPembelajaranRepository implements EvaluasiPembelajaranRepositor
             $checkStatementData,
             $this->statementTypes['get']
         );
-
         $count =0;
         foreach ($result as $item){
+            if($item[19]==1) throw new NilaiSudahPermanenException("Tidak Bisa Mengubah Komponen yang Sudah Difinalisasi");
             $count++;
         }
+
 
         if($count>0){
             $result = $this->connection->executePrepared(

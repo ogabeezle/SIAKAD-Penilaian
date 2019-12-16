@@ -11,21 +11,24 @@
             border-collapse: collapse;
             padding: 10px;
         }
-        #error-container{
+        .errorMessage{
             border: 1px solid red;
             background-color: rgb(251, 118, 140);
+            width: 20vw;
+        }
+        .successMessage{
+            border: 1px solid green;
+            background-color: rgb(123, 255, 123);
+            width: 20vw;
         }
     </style>
 </head>
 <body>
+
 <center>
 <h2>List of (View)Service</h2>
 
-<div id="error-container">
-{% if isset(error) && error != NULL && error != "" %}
-<strong>{{ error }}</strong>
-{% endif %}
-</div>
+{{ flash.output() }}
 
 <table class="bordered">
     

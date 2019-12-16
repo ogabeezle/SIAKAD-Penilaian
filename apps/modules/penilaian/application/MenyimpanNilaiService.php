@@ -2,6 +2,7 @@
 
 namespace Siakad\Penilaian\Application;
 
+use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
 use Siakad\Penilaian\Domain\Model\NilaiRepository;
 
 class MenyimpanNilaiService{

@@ -1,5 +1,5 @@
 <center>
-<h1>Lihat nilai kelas dengan ID <?= $parameter->kelasId ?> </h1>
+<h1>Lihat nilai kelas dengan ID <?= $kelasId ?> </h1>
 <style>
     table, th, tr, td{
         border: 1px solid black;
@@ -10,7 +10,18 @@
         vertical-align: middle;
         margin: 10px;
     }
+    .errorMessage{
+            border: 1px solid red;
+            background-color: rgb(251, 118, 140);
+            width: 20vw;
+    }
+    .successMessage{
+        border: 1px solid green;
+        background-color: rgb(123, 255, 123);
+        width: 20vw;
+    }
 </style>
+
 
 
 <table width="95%">
@@ -25,7 +36,7 @@
         <td><center><?= $komponenpenilaian->namaEvaluasiArray[6] ?></center></td>
         <td><center><?= $komponenpenilaian->namaEvaluasiArray[7] ?></center></td>
     </tr>
-    <tr>
+    <tr id="persentase">
         <th>Persentase Nilai</th>
         <td><center><?= $komponenpenilaian->bobotEvaluasiArray[0] ?></center></td>
         <td><center><?= $komponenpenilaian->bobotEvaluasiArray[1] ?></center></td>
@@ -37,6 +48,8 @@
         <td><center><?= $komponenpenilaian->bobotEvaluasiArray[7] ?></center></td>
     </tr>
 </table>
+<br/>
+<?= $this->flash->output() ?>
 <br/>
 <table width="95%">
     <tr>
@@ -54,27 +67,32 @@
         <th><center>Nilai Huruf</center></th>
         <th><center>Aksi</center></th>
     </tr>
-    <?php foreach ($listevaluasi as $evaluasi) { ?>
+    
+    <?php $v162443205449271283871iterated = false; ?><?php foreach ($listevaluasi as $evaluasi) { ?><?php $v162443205449271283871iterated = true; ?>
     <tr>
-        <form oninput="reSum(this)" action="/lihatnilaikelas" method="post">
-        <input type="hidden" name="kelasId" value="<?= $parameter->kelasId ?>">
+        <form action="/lihatnilaikelas" method="post">
+        <input type="hidden" name="kelasId" value="<?= $kelasId ?>">
         <input type="hidden" name="mahasiswaId" value="<?= $evaluasi->mahasiswa->nrp ?>">
         <input type="hidden" name="nilaiAngka" value="<?= $evaluasi->nilaiAngka ?>">
         <input type="hidden" name="nilaiHuruf" value="<?= $evaluasi->nilaiHuruf ?>">
         <td><center><?= $evaluasi->mahasiswa->nrp ?></center></td>
         <td><center><?= $evaluasi->mahasiswa->nama ?></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[0] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[1] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[2] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[3] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[4] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[5] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[6] ?>"></center></td>
-        <td><center><input style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[7] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[0] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[1] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[2] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[3] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[4] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[5] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[6] ?>"></center></td>
+        <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[7] ?>"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="<?= $evaluasi->nilaiAngka ?>" readonly></center></td>
-        <td style="width:64px;" ><center><?= $evaluasi->nilaiHuruf ?></center></td>
+        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiAngka" value="<?= $evaluasi->nilaiHuruf ?>" readonly></center></td>
         <td><center><button type="submit">Simpan</button></center></td>
         </form>
+    </tr>
+    <?php } if (!$v162443205449271283871iterated) { ?>
+    <tr>
+        <td colspan="13">No Data</td>
     </tr>
     <?php } ?>
 </table>
@@ -82,20 +100,34 @@
 
 <script>
     "use strict";
+
+    function getPersentase(){
+        var node = document.getElementById('persentase').children;
+        var len = node.length;
+        var ret = [];
+        //console.log(node[1].childNodes[0].childNodes[0].wholeText);
+        for(var i = 1; i < len; i+=1){
+            ret.push(parseFloat( node[i].childNodes[0].childNodes[0].wholeText ))
+        }
+        return ret;
+    }
+
     function reSum(node){
-        console.log("test");
+        var percentage = getPersentase();
+        node = node.parentNode.parentNode.parentNode.children[0];
         var sum = 0, buf;
-        var len = node.children.length;
-        var sumNode = node.children[len-1];
-        for(var i = 0; i < len-1; i+=1){
-            buf = parseFloat(node.children[i].value);
+        var len = node.length;
+        var sumNode = node[len-3];
+        console.log(sumNode);
+        for(var i = 4; i < len-3; i+=1){
+            buf = parseFloat(node[i].value) * percentage[i-4];
+            // console.log(node[i]);
             if(buf == "Nan"){
                 sum = "Nan";
                 break;
             }
             sum += buf;
         }
-        sumNode.value = sum;
-        console.log(sum);
+        sumNode.value = sum/100;
     }
 </script>
