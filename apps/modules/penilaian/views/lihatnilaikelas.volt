@@ -121,7 +121,7 @@
     "use strict";
 
     var skalaNilai = [];
-
+    
     {% for data in listskalanilai %}
     skalaNilai.push( [
         parseFloat({{ data.batasBawah }}),
@@ -140,9 +140,8 @@
         }
         return ret;
     }
-
+    var percentage = getPersentase();
     function reSum(node){
-        var percentage = getPersentase();
         node = node.parentNode.parentNode.parentNode.children[0];
         var sum = 0, buf;
         var len = node.length;
@@ -158,7 +157,7 @@
             sum += buf;
         }
         if(sum != "NaN"){
-            sumNode.value = sum/100;
+            sumNode.value = Math.round(sum/100);
             nilaiHurufNode.value = reScale(sum/100)[0];
         } else {
             sumNode.value = "NaN";
