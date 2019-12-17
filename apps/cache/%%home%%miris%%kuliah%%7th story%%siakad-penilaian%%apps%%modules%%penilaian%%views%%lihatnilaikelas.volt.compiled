@@ -105,7 +105,7 @@
         <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[6] ?>"></center></td>
         <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="<?= $evaluasi->nilaiArray[7] ?>"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="<?= $evaluasi->nilaiAngka ?>" readonly></center></td>
-        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiAngka" value="<?= $evaluasi->nilaiHuruf ?>" readonly></center></td>
+        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiHuruf" value="<?= $evaluasi->nilaiHuruf ?>" readonly></center></td>
         <td><center><button type="submit">Simpan</button></center></td>
         </form>
     </tr>
