@@ -193,7 +193,8 @@ class SqlKelasRepository implements KelasRepository{
         }
         return $nilaiArray;
     }
-    public function byDosenAndSemseter(Dosen $dosen, Semester $semester)
+
+    public function byDosenAndSemseter(Dosen $dosen,Semester $semester)
     {
         $statementData = [
             'dosenId' => $dosen->getId(),

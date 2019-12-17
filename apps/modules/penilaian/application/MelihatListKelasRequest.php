@@ -10,8 +10,8 @@ class MelihatListKelasRequest{
 
     public function __construct($dosenId,$semesterId)
     {
-        $this->dosenId = $dosenId;
-        $this->semesterId = $semesterId;
+        $this->dosenId = new Dosen($dosenId,null);
+        $this->semesterId = new Semester($semesterId,null,null);
     }
 
 

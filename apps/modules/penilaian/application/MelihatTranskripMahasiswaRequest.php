@@ -8,6 +8,6 @@ class MelihatTranskripMahasiswaRequest{
 
     public function __construct($mahasiswaId)
     {
-        $this->mahasiswaId=$mahasiswaId;
+        $this->mahasiswaId=new Mahasiswa($mahasiswaId,null);
     }
 }
