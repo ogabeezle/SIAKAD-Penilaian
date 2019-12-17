@@ -16,7 +16,7 @@ use Siakad\Penilaian\Application\MelihatListKelasResponse;
 use Siakad\Penilaian\Application\MelihatListKelasService;
 use Siakad\Penilaian\Application\MelihatNilaiKelasRequest;
 use Siakad\Penilaian\Application\MelihatNilaiKelasService;
-use Siakad\Penilaian\Application\MelihatNilaiService;
+use Siakad\Penilaian\Application\MelihatSkalaNilaiService;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaRequest;
 use Siakad\Penilaian\Application\MelihatTranskripMahasiswaService;
 use Siakad\Penilaian\Application\MenyimpanKomponenPenilaianRequest;
@@ -25,8 +25,8 @@ use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiRequest;
 use Siakad\Penilaian\Application\MenyimpanNilaiEvaluasiService;
 
 use Phalcon\Http\Response;
-use Siakad\Penilaian\Application\MenyimpanNilaiRequest;
-use Siakad\Penilaian\Application\MenyimpanNilaiService;
+use Siakad\Penilaian\Application\MenyimpanSkalaNilaiRequest;
+use Siakad\Penilaian\Application\MenyimpanSkalaNilaiService;
 
 class PenilaianController extends Controller
 {
@@ -110,7 +110,7 @@ class PenilaianController extends Controller
         $this->view->komponenpenilaian = $response->data[0];
 
         $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
-        $service = new MelihatNilaiService($this->nilaiRepository);
+        $service = new MelihatSkalaNilaiService($this->nilaiRepository);
         $response = $service->execute();
         $this->view->listskalanilai = $response->data;
 
@@ -164,7 +164,7 @@ class PenilaianController extends Controller
     {
         $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
 
-        $service = new MelihatNilaiService($this->nilaiRepository);
+        $service = new MelihatSkalaNilaiService($this->nilaiRepository);
         $response = $service->execute();
         $this->view->listskalanilai = $response->data;
 
@@ -174,8 +174,8 @@ class PenilaianController extends Controller
     public function ubahSkalaNilaiAction(){
         $this->nilaiRepository = $this->di->getShared('sql_nilai_repository');
         $data = $this->request->get();
-        $service = new MenyimpanNilaiService($this->nilaiRepository);
-        $request = new MenyimpanNilaiRequest($data);
+        $service = new MenyimpanSkalaNilaiService($this->nilaiRepository);
+        $request = new MenyimpanSkalaNilaiRequest($data);
         try {
             $service->execute($request);
             $this->view->error = false;

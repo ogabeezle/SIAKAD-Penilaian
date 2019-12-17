@@ -5,9 +5,10 @@ namespace Siakad\Penilaian\Infrastructure;
 use Phalcon\Db\Column;
 use Phalcon\Di;
 use Siakad\Penilaian\Domain\Model\SkalaNilai;
-use Siakad\Penilaian\Domain\Model\NilaiRepository;
+use Siakad\Penilaian\Domain\Model\SkalaNilaiRepository;
+use Siakad\Penilaian\Domain\Model\SkalaNilaiRoot;
 
-class SqlNilaiRepository implements NilaiRepository
+class SqlSkalaNilaiRepository implements SkalaNilaiRepository
 {
     private $connection;
     private $statement;
@@ -77,38 +78,41 @@ class SqlNilaiRepository implements NilaiRepository
         return $nilaiArray;
     }
 
-    public function save($nilai)
+    public function save(SkalaNilaiRoot $skalaNilaiRoot)
     {
-        $checkStatementData = [
-            'id' => $nilai['id']
-        ];
-        $statementData = [
-            'id' => $nilai['id'],
-            'batasAtas' => $nilai['batasAtas'],
-            'batasBawah' => $nilai['batasBawah']
-        ];
-        $result = $this->connection->executePrepared(
-            $this->statement['check'],
-            $checkStatementData,
-            $this->statementTypes['check']
-        );
+        /* @var $nilai SkalaNilai */
+        foreach ($skalaNilaiRoot->getSkalaNilaiArray() as $nilai) {
+            $checkStatementData = [
+                'id' => $nilai->getId()
+            ];
+            $statementData = [
+                'id' => $nilai->getId(),
+                'batasAtas' => $nilai->getBatasAtas(),
+                'batasBawah' => $nilai->getBatasBawah()
+            ];
+            $result = $this->connection->executePrepared(
+                $this->statement['check'],
+                $checkStatementData,
+                $this->statementTypes['check']
+            );
 
-        $count = 0;
-        foreach ($result as $item) {
-            $count++;
-        }
-        if ($count > 0) {
-            $result = $this->connection->executePrepared(
-                $this->statement['update'],
-                $statementData,
-                $this->statementTypes['update']
-            );
-        } else {
-            $result = $this->connection->executePrepared(
-                $this->statement['save'],
-                $statementData,
-                $this->statementTypes['save']
-            );
+            $count = 0;
+            foreach ($result as $item) {
+                $count++;
+            }
+            if ($count > 0) {
+                $result = $this->connection->executePrepared(
+                    $this->statement['update'],
+                    $statementData,
+                    $this->statementTypes['update']
+                );
+            } else {
+                $result = $this->connection->executePrepared(
+                    $this->statement['save'],
+                    $statementData,
+                    $this->statementTypes['save']
+                );
+            }
         }
     }
 }

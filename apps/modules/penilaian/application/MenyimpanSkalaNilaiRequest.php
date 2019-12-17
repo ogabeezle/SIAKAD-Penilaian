@@ -1,7 +1,7 @@
 <?php
 namespace Siakad\Penilaian\Application;
 
-class MenyimpanNilaiRequest{
+class MenyimpanSkalaNilaiRequest{
     public $nilai;
     public function __construct($nilai){
         $this->nilai=$nilai;

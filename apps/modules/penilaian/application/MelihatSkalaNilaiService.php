@@ -1,11 +1,11 @@
 <?php
 namespace Siakad\Penilaian\Application;
 
-use Siakad\Penilaian\Domain\Model\NilaiRepository;
+use Siakad\Penilaian\Domain\Model\SkalaNilaiRepository;
 
 class MelihatSkalaNilaiService{
     private $nilaiRepository;
-    public function __construct(NilaiRepository $nilaiRepository)
+    public function __construct(SkalaNilaiRepository $nilaiRepository)
     {
         $this->nilaiRepository=$nilaiRepository;
     }
