@@ -39,7 +39,7 @@ CREATE TABLE `aktivitas_mengajar` (
 --
 
 INSERT INTO `aktivitas_mengajar` (`dosen_id`, `kelas_id`) VALUES
-('asd', 'kelas1');
+('dosen1', 'kelas1');
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ CREATE TABLE `dosen` (
 --
 
 INSERT INTO `dosen` (`id`, `nama`) VALUES
-('asd', 'asd');
+('dosen1', 'bapak dosen1');
 
 -- --------------------------------------------------------
 
@@ -93,8 +93,8 @@ CREATE TABLE `evaluasi_pembelajaran` (
 --
 
 INSERT INTO `evaluasi_pembelajaran` (`kelas_id`, `dosen_id`, `jumlah_penilaian`, `nama_evaluasi_1`, `persentase_1`, `nama_evaluasi_2`, `persentase_2`, `nama_evaluasi_3`, `persentase_3`, `nama_evaluasi_4`, `persentase_4`, `nama_evaluasi_5`, `persentase_5`, `nama_evaluasi_6`, `persentase_6`, `nama_evaluasi_7`, `persentase_7`, `nama_evaluasi_8`, `persentase_8`, `is_fixed`) VALUES
-('kelas1', 'asd', 107, 'UTS', '14.00', 'EAS', '14.00', 'eval3', '14.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1),
-('kelas2', 'asd', 107, 'eval1', '14.00', 'eval2', '14.00', 'eval3', '14.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1);
+('kelas1', 'dosen1', 107, 'UTS', '14.00', 'EAS', '14.00', 'eval3', '14.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1),
+('kelas2', 'dosen1', 107, 'eval1', '14.00', 'eval2', '14.00', 'eval3', '14.00', 'eval4', '13.00', 'eval5', '13.00', 'eval6', '13.00', 'eval7', '13.00', 'eval8', '13.00', 1);
 
 -- --------------------------------------------------------
 
@@ -115,6 +115,8 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `semester_id`, `mata_kuliah_id`, `nama`) VALUES
 ('kelas1', 'semester1', 'matakuliah1', 'kelas 1');
+INSERT INTO `kelas` (`id`, `semester_id`, `mata_kuliah_id`, `nama`) VALUES
+('kelas2', 'semester1', 'matakuliah2', 'kelas 2');
 
 -- --------------------------------------------------------
 
@@ -143,8 +145,9 @@ CREATE TABLE `mahasiswa` (
 --
 
 INSERT INTO `mahasiswa` (`nrp`, `nama`) VALUES
-('asd', 'test'),
-('ass', 'ass');
+('5116100097', 'michael'),
+('5116100006', 'rahadian'),
+('5116100016', 'taufiq');
 
 -- --------------------------------------------------------
 
@@ -165,6 +168,8 @@ CREATE TABLE `mata_kuliah` (
 
 INSERT INTO `mata_kuliah` (`id`, `nama`, `kode_matkul`, `sks`) VALUES
 ('matakuliah1', 'matakuliah 1', 'mk1', 4);
+INSERT INTO `mata_kuliah` (`id`, `nama`, `kode_matkul`, `sks`) VALUES
+('matakuliah2', 'matakuliah 2', 'mk2', 4);
 
 -- --------------------------------------------------------
 
@@ -213,8 +218,11 @@ CREATE TABLE `nilai_evaluasi_pembelajaran` (
 --
 
 INSERT INTO `nilai_evaluasi_pembelajaran` (`mahasiswa_id`, `kelas_id`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_4`, `nilai_5`, `nilai_6`, `nilai_7`, `nilai_8`, `nilai_angka`, `nilai_huruf`) VALUES
-('asd', 'kelas1', '90', '80', '80', '80', '80', '80', '80', '80', '0', 'AB'),
-('ass', 'kelas1', '80', '80', '80', '80', '80', '80', '80', '80', '80', 'AB');
+('5116100097', 'kelas1', '90', '80', '80', '80', '80', '80', '80', '80', '0', 'AB'),
+('5116100006', 'kelas1', '80', '80', '80', '80', '80', '80', '80', '80', '80', 'AB');
+INSERT INTO `nilai_evaluasi_pembelajaran` (`mahasiswa_id`, `kelas_id`, `nilai_1`, `nilai_2`, `nilai_3`, `nilai_4`, `nilai_5`, `nilai_6`, `nilai_7`, `nilai_8`, `nilai_angka`, `nilai_huruf`) VALUES
+('5116100097', 'kelas2', '90', '80', '80', '80', '80', '80', '80', '80', '0', 'AB'),
+('5116100016', 'kelas2', '80', '80', '80', '80', '80', '80', '80', '80', '80', 'AB');
 
 -- --------------------------------------------------------
 
