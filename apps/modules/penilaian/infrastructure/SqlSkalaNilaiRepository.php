@@ -78,7 +78,6 @@ class SqlSkalaNilaiRepository implements SkalaNilaiRepository
         return $nilaiArray;
     }
 
-<<<<<<< HEAD:apps/modules/penilaian/infrastructure/SqlSkalaNilaiRepository.php
     public function save(SkalaNilaiRoot $skalaNilaiRoot)
     {
         /* @var $nilai SkalaNilai */
@@ -90,36 +89,7 @@ class SqlSkalaNilaiRepository implements SkalaNilaiRepository
                 'id' => $nilai->getId(),
                 'batasAtas' => $nilai->getBatasAtas(),
                 'batasBawah' => $nilai->getBatasBawah()
-            ];
-=======
-    public function save(Nilai $nilai)
-    {
-        $checkStatementData = [
-            'id' => $nilai->getId()
-        ];
-        $statementData = [
-            'id' => $nilai->getId(),
-            'batasAtas' => $nilai->getBatasAtas(),
-            'batasBawah' => $nilai->getBatasBawah()
-        ];
-        $result = $this->connection->executePrepared(
-            $this->statement['check'],
-            $checkStatementData,
-            $this->statementTypes['check']
-        );
-
-        $count = 0;
-        foreach ($result as $item) {
-            $count++;
-        }
-        if ($count > 0) {
-            $result = $this->connection->executePrepared(
-                $this->statement['update'],
-                $statementData,
-                $this->statementTypes['update']
-            );
-        } else {
->>>>>>> ecc30ff70b159ff06bb61c85bc57c3e9c48e4dd3:apps/modules/penilaian/infrastructure/SqlNilaiRepository.php
+                ];
             $result = $this->connection->executePrepared(
                 $this->statement['check'],
                 $checkStatementData,
@@ -138,9 +108,9 @@ class SqlSkalaNilaiRepository implements SkalaNilaiRepository
                 );
             } else {
                 $result = $this->connection->executePrepared(
-                    $this->statement['save'],
-                    $statementData,
-                    $this->statementTypes['save']
+                    $this->statement['check'],
+                    $checkStatementData,
+                    $this->statementTypes['check']
                 );
             }
         }
