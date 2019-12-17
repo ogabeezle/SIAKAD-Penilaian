@@ -33,7 +33,6 @@ class EvaluasiPembelajaran{
         $total=0;
         foreach($this->komponenArray as $item){
             $total+=$item->getBobot();
-            if($item->getBobot()<0) throw new NilaiKomponenMahasiswaException("ada komponen bernilai negative");
         }
         if($total!=100) throw new PersentaseKomponenNilaiException("jumlah nilai tidak 100");
         $this->jumlahPenilaian=$total;

@@ -2,6 +2,7 @@
 
 namespace Siakad\Penilaian\Domain\Model;
 
+use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
 use Siakad\Penilaian\Domain\Model\Kelas;
 use Siakad\Penilaian\Domain\Model\Mahasiswa;
 
@@ -14,6 +15,9 @@ class NilaiEvaluasiPembelajaran{
 
     public function __construct(Mahasiswa $mahasiswa, Kelas $kelas, $nilaiArray, $nilaiAngka, $nilaiHuruf)
     {
+        foreach($nilaiArray as $nilai){
+            if($nilai<0||$nilai>100) throw new NilaiKomponenMahasiswaException("nilai tidak valid");
+        }
         $this->mahasiswa=$mahasiswa;
         $this->kelas=$kelas;
         $this->nilaiAngka=$nilaiAngka;

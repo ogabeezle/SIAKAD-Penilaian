@@ -2,6 +2,9 @@
 
 namespace Siakad\Penilaian\Domain\Model;
 
+use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
+use Siakad\Common\Exception\PersentaseKomponenNilaiException;
+
 class KomponenPenilaian{
     private $nama;
     private $bobot;
@@ -13,6 +16,7 @@ class KomponenPenilaian{
      */
     public function __construct($nama, $bobot)
     {
+        if($bobot<0) throw new PersentaseKomponenNilaiException("bobot penilaian bernilai negative");
         $this->nama = $nama;
         $this->bobot = $bobot;
     }
