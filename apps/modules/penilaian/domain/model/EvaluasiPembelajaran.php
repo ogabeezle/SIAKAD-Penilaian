@@ -1,14 +1,15 @@
 <?php
 namespace Siakad\Penilaian\Domain\Model;
 
+use Siakad\Common\Exception\NilaiKomponenMahasiswaException;
+use Siakad\Common\Exception\PersentaseKomponenNilaiException;
 use Siakad\Penilaian\Domain\Model\Dosen;
 use Siakad\Penilaian\Domain\Model\Kelas;
 class EvaluasiPembelajaran{
     private $kelas;
     private $dosen;
     private $jumlahPenilaian;
-    private $namaEvaluasiArray;
-    private $bobotEvaluasiArray;
+    private $komponenArray;
     private $isFixed;
 
     /**
@@ -16,20 +17,26 @@ class EvaluasiPembelajaran{
      * @param $kelas
      * @param $dosen
      * @param $jumlahPenilaian
-     * @param $namaevaluasiArray
-     * @param $bobotEvaluasiArray
+     * @param $komponenArray
      * @param $isFixed
      */
-    public function __construct(Kelas $kelas, Dosen $dosen, $jumlahPenilaian, $namaevaluasiArray, $bobotEvaluasiArray, $isFixed)
+    public function __construct(Kelas $kelas, Dosen $dosen, $jumlahPenilaian, $komponenArray, $isFixed)
     {
         $this->kelas = $kelas;
         $this->dosen = $dosen;
         $this->jumlahPenilaian = $jumlahPenilaian;
-        $this->namaEvaluasiArray = $namaevaluasiArray;
-        $this->bobotEvaluasiArray = $bobotEvaluasiArray;
+        $this->komponenArray=$komponenArray;
         $this->isFixed = $isFixed;
     }
 
+    public function validate(){
+        $total=0;
+        foreach($this->komponenArray as $item){
+            $total+=$item->getBobot();
+        }
+        if($total!=100) throw new PersentaseKomponenNilaiException("jumlah nilai tidak 100");
+        $this->jumlahPenilaian=$total;
+    }
 
     /**
      * @return mixed
@@ -38,15 +45,6 @@ class EvaluasiPembelajaran{
     {
         return $this->kelas;
     }
-
-    /**
-     * @param mixed $kelas
-     */
-    public function setKelas(Kelas $kelas)
-    {
-        $this->kelas = $kelas;
-    }
-
     /**
      * @return mixed
      */
@@ -54,15 +52,6 @@ class EvaluasiPembelajaran{
     {
         return $this->dosen;
     }
-
-    /**
-     * @param mixed $dosen
-     */
-    public function setDosen(Dosen $dosen)
-    {
-        $this->dosen = $dosen;
-    }
-
     /**
      * @return mixed
      */
@@ -72,43 +61,11 @@ class EvaluasiPembelajaran{
     }
 
     /**
-     * @param mixed $jumlahPenilaian
-     */
-    public function setJumlahPenilaian($jumlahPenilaian)
-    {
-        $this->jumlahPenilaian = $jumlahPenilaian;
-    }
-
-    /**
      * @return mixed
      */
-    public function getNamaEvaluasiArray()
+    public function getKomponenArray()
     {
-        return $this->namaEvaluasiArray;
-    }
-
-    /**
-     * @param mixed $namaEvaluasiArray
-     */
-    public function setNamaEvaluasiArray($namaevaluasiArray)
-    {
-        $this->namaEvaluasiArray = $namaevaluasiArray;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBobotEvaluasiArray()
-    {
-        return $this->bobotEvaluasiArray;
-    }
-
-    /**
-     * @param mixed $bobotEvaluasiArray
-     */
-    public function setBobotEvaluasiArray($bobotEvaluasiArray)
-    {
-        $this->bobotEvaluasiArray = $bobotEvaluasiArray;
+        return $this->komponenArray;
     }
 
     /**
@@ -118,13 +75,4 @@ class EvaluasiPembelajaran{
     {
         return $this->isFixed;
     }
-
-    /**
-     * @param mixed $isFixed
-     */
-    public function setIsFixed($isFixed)
-    {
-        $this->isFixed = $isFixed;
-    }
-
 }
