@@ -14,10 +14,6 @@ class SkalaNilai
 
     public function __construct($id, $nilaiNumerik, $nilaiHuruf, $batasAtas, $batasBawah)
     {
-        if (0.0 > $nilaiNumerik || $nilaiNumerik > 4.0) {
-            throw new SkalaNilaiException("Rentang nilai numerik antara 0.00 hingga 4.00");
-        }
-
         if ($batasBawah >= $batasAtas) {
             throw new SkalaNilaiException("Nilai batas bawah melebihi atau sama dengan nilai batas atas");
         }
@@ -107,12 +103,6 @@ class SkalaNilai
      */
     public function compare(SkalaNilai $that)
     {
-        if ($this->nilaiHuruf === $that->getNilaiHuruf()) {
-            throw new SkalaNilaiException("Nilai huruf identik");
-        }
-        if ($this->nilaiNumerik === $that->getNilaiNumerik()) {
-            throw new SkalaNilaiException("Nilai numerik identik");
-        }
         if (($this->batasBawah <= $that->getBatasAtas() && $that->getBatasAtas() <= $this->batasAtas) ||
             ($this->batasBawah <= $that->getBatasBawah() && $that->getBatasBawah() <= $this->batasAtas)) {
             throw new SkalaNilaiException("Batas nilai overlap");
