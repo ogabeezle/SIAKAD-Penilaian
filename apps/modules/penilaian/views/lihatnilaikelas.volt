@@ -122,17 +122,6 @@
 
     var skalaNilai = [];
 
-    // tes ini
-    // {{ "{% for data in listskalanilai %}" }}
-    // {{ "{%=" }}skalaNilai.push( [
-    //     parseFloat( data.batasBawah ),
-    //     parseFloat( data.batasAtas ),
-    //     parseFloat( data.nilaiNumerik ),
-    //     data.nilaiHuruf
-    // ] );{{ "%}" }}
-    // {{ "{% endfor %}" }}
-
-    // ato ini
     {% for data in listskalanilai %}
     skalaNilai.push( [
         parseFloat({{ data.batasBawah }}),
@@ -146,7 +135,6 @@
         var node = document.getElementById('persentase').children;
         var len = node.length;
         var ret = [];
-        //console.log(node[1].childNodes[0].childNodes[0].wholeText);
         for(var i = 1; i < len; i+=1){
             ret.push(parseFloat( node[i].childNodes[0].childNodes[0].wholeText ))
         }
@@ -160,7 +148,6 @@
         var len = node.length;
         var sumNode = node[len-3];
         var nilaiHurufNode = node[len-2];
-        // console.log(nilaiHurufNode);
         for(var i = 4; i < len-3; i+=1){
             buf = parseFloat(node[i].value) * percentage[i-4];
             // console.log(node[i]);
