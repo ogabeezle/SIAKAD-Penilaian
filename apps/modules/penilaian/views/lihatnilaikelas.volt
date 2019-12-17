@@ -89,7 +89,7 @@
     
     {% for evaluasi in listevaluasi %}
     <tr>
-        <form action="/lihatnilaikelas" method="post">
+        <form action="/ubahnilaikelas" method="post">
         <input type="hidden" name="kelasId" value="{{ kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
@@ -105,7 +105,7 @@
         <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[6] }}"></center></td>
         <td><center><input oninput="reSum(this)" style="width:64px;" type="text" name="nilaiArray[]" value="{{ evaluasi.nilaiArray[7] }}"></center></td>
         <td style="width:64px;"><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}" readonly></center></td>
-        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiAngka" value="{{ evaluasi.nilaiHuruf }}" readonly></center></td>
+        <td style="width:64px;" ><center><input style="width:64px;" type="text" name="nilaiHuruf" value="{{ evaluasi.nilaiHuruf }}" readonly></center></td>
         <td><center><button type="submit">Simpan</button></center></td>
         </form>
     </tr>
@@ -120,33 +120,63 @@
 <script>
     "use strict";
 
+    var skalaNilai = [];
+    
+    {% for data in listskalanilai %}
+    skalaNilai.push( [
+        parseFloat({{ data.batasBawah }}),
+        parseFloat({{ data.batasAtas }}),
+        parseFloat({{ data.nilaiNumerik }}),
+        "{{ data.nilaiHuruf }}"
+    ] );
+    {% endfor %}
+
     function getPersentase(){
         var node = document.getElementById('persentase').children;
         var len = node.length;
         var ret = [];
-        //console.log(node[1].childNodes[0].childNodes[0].wholeText);
         for(var i = 1; i < len; i+=1){
             ret.push(parseFloat( node[i].childNodes[0].childNodes[0].wholeText ))
         }
         return ret;
     }
-
+    var percentage = getPersentase();
     function reSum(node){
-        var percentage = getPersentase();
         node = node.parentNode.parentNode.parentNode.children[0];
         var sum = 0, buf;
         var len = node.length;
         var sumNode = node[len-3];
-        console.log(sumNode);
+        var nilaiHurufNode = node[len-2];
         for(var i = 4; i < len-3; i+=1){
             buf = parseFloat(node[i].value) * percentage[i-4];
             // console.log(node[i]);
-            if(buf == "Nan"){
-                sum = "Nan";
+            if(buf == "NaN"){
+                sum = "NaN";
                 break;
             }
             sum += buf;
         }
-        sumNode.value = sum/100;
+        if(sum != "NaN"){
+            sumNode.value = Math.round(sum/100);
+            nilaiHurufNode.value = reScale(sum/100)[0];
+        } else {
+            sumNode.value = "NaN";
+            nilaiHurufNode.value = "";
+        }
     }
+
+    function reScale(sum){
+        var len = skalaNilai.length;
+        // 0 => nilai huruf; 1 => nilai numerik
+        var ret = ["Undefined Nilai", 0];
+        for (var i = 0; i < len; i+=1){
+            if ( (sum >= skalaNilai[i][0]) && (sum <= skalaNilai[i][1]) ){
+                ret[0] = skalaNilai[i][3];
+                ret[1] = skalaNilai[i][2];
+                return ret;
+            }
+        }
+        return ret;
+    }
+
 </script>

@@ -15,7 +15,7 @@ class MenyimpanNilaiService{
     }
 
     public function execute(MenyimpanNilaiRequest $menyimpanNilaiRequest){
-        $mini=100;
+        $mini=101;
         $dataArray=array();
         for($i=0;$i<7;$i++){
             $data=[];
@@ -23,7 +23,7 @@ class MenyimpanNilaiService{
             $data['batasBawah']=$menyimpanNilaiRequest->nilai['batasBawah'][$i];
             $data['batasAtas']=$menyimpanNilaiRequest->nilai['batasAtas'][$i];
             if($data['batasAtas']<$data['batasBawah']) throw new SkalaNilaiException("batas atas kurang dati batas bawah");
-            if($data['batasAtas']>$mini) throw new SkalaNilaiException("batas overlap");
+            if($data['batasAtas']>=$mini) throw new SkalaNilaiException("batas overlap");
             $mini=$data['batasBawah'];
             array_push($dataArray,$data);
         }

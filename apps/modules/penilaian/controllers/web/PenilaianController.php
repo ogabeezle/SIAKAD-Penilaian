@@ -88,13 +88,13 @@ class PenilaianController extends Controller
             $service->execute($request);
             $this->view->error = false;
             $this->flash->success("Komponen Nilai telah Terupdate");
-            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId, true);
         } catch (PersentaseKomponenNilaiException $e) {
             $this->flash->error($e->getMessage());
-            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId, true);
         }catch(NilaiSudahPermanenException $e){
             $this->flash->error($e->getMessage());
-            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId);
+            $this->response->redirect("/komponenpenilaiankelas?kelasId=".$kelasId, true);
         }
     }
 
@@ -137,10 +137,10 @@ class PenilaianController extends Controller
             $service->execute($request);
             $this->view->error = false;
             $this->flash->success("Komponen Nilai telah Terupdate");
-            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId);
+            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId, true);
         } catch(NilaiKomponenMahasiswaException $e){
             $this->flash->error($e->getMessage());
-            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId);
+            $this->response->redirect("/lihatnilaikelas?kelasId=".$kelasId, true);
         }
     }
 
@@ -166,10 +166,6 @@ class PenilaianController extends Controller
 
         $service = new MelihatNilaiService($this->nilaiRepository);
         $response = $service->execute();
-        echo '<pre>';
-        print_r($response->data);
-        echo '</pre>';
-//        die(0);
         $this->view->listskalanilai = $response->data;
 
         return $this->view->pick('skalanilai');
@@ -184,10 +180,10 @@ class PenilaianController extends Controller
             $service->execute($request);
             $this->view->error = false;
             $this->flash->success("Skala Nilai telah Terupdate");
-            $this->response->redirect("/lihatskalanilai");
+            $this->response->redirect("/lihatskalanilai", true);
         } catch(SkalaNilaiException $e){
             $this->flash->error($e->getMessage());
-            $this->response->redirect("/lihatskalanilai");
+            $this->response->redirect("/lihatskalanilai", true);
         }
     }
 

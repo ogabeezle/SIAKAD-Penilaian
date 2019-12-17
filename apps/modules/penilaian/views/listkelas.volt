@@ -47,9 +47,13 @@
         <td><center>{{ kelas.semester.tahunAjaran }}</center></td>
         <td><center>{{ kelas.mataKuliah.SKS }}</center></td>
         <td><center>
-            <form action="/komponenpenilaiankelas" method="get">
+            <form style="display: inline;" action="/lihatnilaikelas" method="get">
                 <input value="<?php echo $kelas->id; ?>" type="hidden" name="kelasId">
-                <button type="submit">Komponen Penilaian Kelas</button>
+                <button type="submit" style="width: 200px;">Nilai Kelas</button>
+            </form>
+            <form style="display: inline;" action="/komponenpenilaiankelas" method="get">
+                <input value="<?php echo $kelas->id; ?>" type="hidden" name="kelasId">
+                <button type="submit" style="width: 200px;">Komponen Penilaian Kelas</button>
             </form>
         </center></td>
     </tr>
