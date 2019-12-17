@@ -22,7 +22,26 @@
     }
 </style>
 
-
+<table>
+    <tr>
+        <th width="150px">Nilai Huruf</th>
+        <th>Nilai Angka</th>
+        <th colspan="2">Rentang Nilai</th>
+    </tr>
+    <?php $v162443205449271283871iterated = false; ?><?php foreach ($listskalanilai as $data) { ?><?php $v162443205449271283871iterated = true; ?>
+    <tr>
+            <td><center><?= $data->nilaiHuruf ?></center></td>
+            <td><center><?= $data->nilaiNumerik ?></center></td>
+            <td><center><?= $data->batasBawah ?></center></td>
+            <td><center><?= $data->batasAtas ?></center></td>
+    </tr>
+    <?php } if (!$v162443205449271283871iterated) { ?>
+    <tr>
+        <td colspan="4">No Data</td>
+    </tr>
+    <?php } ?>
+</table>
+<br/>
 
 <table width="95%">
     <tr>
@@ -101,6 +120,28 @@
 <script>
     "use strict";
 
+    var skalaNilai = [];
+
+    // tes ini
+    // <?= '{% for data in listskalanilai %}' ?>
+    // <?= '{%=' ?>skalaNilai.push( [
+    //     parseFloat( data.batasBawah ),
+    //     parseFloat( data.batasAtas ),
+    //     parseFloat( data.nilaiNumerik ),
+    //     data.nilaiHuruf
+    // ] );<?= '%}' ?>
+    // <?= '{% endfor %}' ?>
+
+    // ato ini
+    <?php foreach ($listskalanilai as $data) { ?>
+    skalaNilai.push( [
+        parseFloat(<?= $data->batasBawah ?>),
+        parseFloat(<?= $data->batasAtas ?>),
+        parseFloat(<?= $data->nilaiNumerik ?>),
+        "<?= $data->nilaiHuruf ?>"
+    ] );
+    <?php } ?>
+
     function getPersentase(){
         var node = document.getElementById('persentase').children;
         var len = node.length;
@@ -118,16 +159,40 @@
         var sum = 0, buf;
         var len = node.length;
         var sumNode = node[len-3];
-        console.log(sumNode);
+        var nilaiHurufNode = node[len-2];
+        // console.log(nilaiHurufNode);
         for(var i = 4; i < len-3; i+=1){
             buf = parseFloat(node[i].value) * percentage[i-4];
             // console.log(node[i]);
-            if(buf == "Nan"){
-                sum = "Nan";
+            if(buf == "NaN"){
+                sum = "NaN";
                 break;
             }
             sum += buf;
         }
-        sumNode.value = sum/100;
+        if(sum != "NaN"){
+            sumNode.value = sum/100;
+            nilaiHurufNode.value = reScale(sum/100)[0];
+        } else {
+            sumNode.value = "NaN";
+            nilaiHurufNode.value = "";
+        }
     }
+
+    function reScale(sum){
+        var len = skalaNilai.length;
+        // 0 => nilai huruf; 1 => nilai numerik
+        var ret = ["Undefined Nilai", 0];
+        // console.log(skalaNilai);
+        for (var i = 0; i < len; i+=1){
+            // console.log(sum, skalaNilai[i][0], skalaNilai[i][1]);
+            if ( (sum >= skalaNilai[i][0]) && (sum <= skalaNilai[i][1]) ){
+                ret[0] = skalaNilai[i][3];
+                ret[1] = skalaNilai[i][2];
+                return ret;
+            }
+        }
+        return ret;
+    }
+
 </script>

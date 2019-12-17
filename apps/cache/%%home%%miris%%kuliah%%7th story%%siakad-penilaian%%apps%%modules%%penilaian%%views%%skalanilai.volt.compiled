@@ -27,7 +27,7 @@
 
 <?= $this->flash->output() ?>
 
-<form action="/skalanilai" method="post">
+<form action="/lihatskalanilai" method="post">
 <table>
     <tr>
         <th width="150px">Nilai Huruf</th>
@@ -36,6 +36,7 @@
     </tr>
     <?php $v96551547419324636931iterated = false; ?><?php foreach ($listskalanilai as $data) { ?><?php $v96551547419324636931iterated = true; ?>
     <tr>
+            <input type='hidden' value="<?= $data->id ?>" name="id[]" readonly>
             <td><center><?= $data->nilaiHuruf ?></center></td>
             <td><center><?= $data->nilaiNumerik ?></center></td>
             <td><center><input type="number" name="batasBawah[]" min="0" max="100" value="<?= $data->batasBawah ?>"></center></td>

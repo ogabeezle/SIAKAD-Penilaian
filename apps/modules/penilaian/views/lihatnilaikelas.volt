@@ -123,14 +123,14 @@
     var skalaNilai = [];
 
     // tes ini
-    {{ "{% for data in listskalanilai %}" }}
-    {{ "{%=" }}skalaNilai.push( [
-        parseFloat( data.batasBawah ),
-        parseFloat( data.batasAtas ),
-        parseFloat( data.nilaiNumerik ),
-        data.nilaiHuruf
-    ] );{{ "%}" }}
-    {{ "{% endfor %}" }}
+    // {{ "{% for data in listskalanilai %}" }}
+    // {{ "{%=" }}skalaNilai.push( [
+    //     parseFloat( data.batasBawah ),
+    //     parseFloat( data.batasAtas ),
+    //     parseFloat( data.nilaiNumerik ),
+    //     data.nilaiHuruf
+    // ] );{{ "%}" }}
+    // {{ "{% endfor %}" }}
 
     // ato ini
     {% for data in listskalanilai %}
@@ -138,7 +138,7 @@
         parseFloat({{ data.batasBawah }}),
         parseFloat({{ data.batasAtas }}),
         parseFloat({{ data.nilaiNumerik }}),
-        {{ data.nilaiHuruf }}
+        "{{ data.nilaiHuruf }}"
     ] );
     {% endfor %}
 
@@ -160,7 +160,7 @@
         var len = node.length;
         var sumNode = node[len-3];
         var nilaiHurufNode = node[len-2];
-        console.log(nilaiHurufNode);
+        // console.log(nilaiHurufNode);
         for(var i = 4; i < len-3; i+=1){
             buf = parseFloat(node[i].value) * percentage[i-4];
             // console.log(node[i]);
@@ -172,7 +172,7 @@
         }
         if(sum != "NaN"){
             sumNode.value = sum/100;
-            nilaiHurufNode.value = reScale(sum)[0];
+            nilaiHurufNode.value = reScale(sum/100)[0];
         } else {
             sumNode.value = "NaN";
             nilaiHurufNode.value = "";
