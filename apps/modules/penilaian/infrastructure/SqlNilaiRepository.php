@@ -77,17 +77,15 @@ class SqlNilaiRepository implements NilaiRepository
         return $nilaiArray;
     }
 
-    public function save($nilai)
+    public function save(Nilai $nilai)
     {
-        var_dump($nilai);
-//        die(0);
         $checkStatementData = [
-            'id' => $nilai['id']
+            'id' => $nilai->getId()
         ];
         $statementData = [
-            'id' => $nilai['id'],
-            'batasAtas' => $nilai['batasAtas'],
-            'batasBawah' => $nilai['batasBawah']
+            'id' => $nilai->getId(),
+            'batasAtas' => $nilai->getBatasAtas(),
+            'batasBawah' => $nilai->getBatasBawah()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['check'],

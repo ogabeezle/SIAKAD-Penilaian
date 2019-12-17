@@ -4,5 +4,5 @@ namespace Siakad\Penilaian\Domain\Model;
 
 interface NilaiRepository{
     public function all();
-    public function save($nilai);
+    public function save(Nilai $nilai);
 }

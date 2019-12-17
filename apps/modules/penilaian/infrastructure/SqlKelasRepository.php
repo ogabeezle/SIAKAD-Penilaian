@@ -87,10 +87,10 @@ class SqlKelasRepository implements KelasRepository{
         ];
     }
 
-    public function getKomponen($kelasid)
+    public function getKomponen(Kelas $kelas)
     {
         $statementData = [
-            'kelasId' => $kelasid
+            'kelasId' => $kelas->getId()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['getKomponen'],
@@ -146,9 +146,9 @@ class SqlKelasRepository implements KelasRepository{
         return $komponenArray;
     }
 
-    public function getNilai($kelasId){
+    public function getNilai(Kelas $kelas){
         $statementData = [
-            'kelasId' => $kelasId
+            'kelasId' => $kelas->getId()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['getNilai'],
@@ -193,11 +193,11 @@ class SqlKelasRepository implements KelasRepository{
         }
         return $nilaiArray;
     }
-    public function byDosenAndSemseter($dosenId, $semesterId)
+    public function byDosenAndSemseter(Dosen $dosen, Semester $semester)
     {
         $statementData = [
-            'dosenId' => $dosenId,
-            'semesterId' => $semesterId
+            'dosenId' => $dosen->getId(),
+            'semesterId' => $semester->getId()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['byDosenAndSemester'],

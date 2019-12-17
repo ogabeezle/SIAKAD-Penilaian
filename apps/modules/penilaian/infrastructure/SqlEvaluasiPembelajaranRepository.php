@@ -102,37 +102,37 @@ class SqlEvaluasiPembelajaranRepository implements EvaluasiPembelajaranRepositor
         ];
     }
 
-    public function save($evaluasiPembelajaran)
+    public function save(EvaluasiPembelajaran $evaluasiPembelajaran)
     {
         $checkStatementData = [
-            'kelasId' => $evaluasiPembelajaran['kelasId'],
-            'dosenId' => $evaluasiPembelajaran['dosenId']
+            'kelasId' => $evaluasiPembelajaran->getKelas()->getId(),
+            'dosenId' => $evaluasiPembelajaran->getDosen()->getId()
         ];
         $total=0;
-        foreach ($evaluasiPembelajaran['bobotEvaluasiArray'] as $value){
+        foreach ($evaluasiPembelajaran->getBobotEvaluasiArray() as $value){
             $total+=$value;
         }
         $statementData = [
-            'kelasId' => $evaluasiPembelajaran['kelasId'],
-            'dosenId' => $evaluasiPembelajaran['dosenId'],
+            'kelasId' => $evaluasiPembelajaran->getKelas()->getId(),
+            'dosenId' => $evaluasiPembelajaran->getDosen()->getId(),
             'jumlahPenilaian' => $total,
-            'nama1' => $evaluasiPembelajaran['namaEvaluasiArray'][0],
-            'bobot1' =>$evaluasiPembelajaran['bobotEvaluasiArray'][0],
-            'nama2' => $evaluasiPembelajaran['namaEvaluasiArray'][1],
-            'bobot2' =>$evaluasiPembelajaran['bobotEvaluasiArray'][1],
-            'nama3' => $evaluasiPembelajaran['namaEvaluasiArray'][2],
-            'bobot3' =>$evaluasiPembelajaran['bobotEvaluasiArray'][2],
-            'nama4' => $evaluasiPembelajaran['namaEvaluasiArray'][3],
-            'bobot4' =>$evaluasiPembelajaran['bobotEvaluasiArray'][3],
-            'nama5' => $evaluasiPembelajaran['namaEvaluasiArray'][4],
-            'bobot5' =>$evaluasiPembelajaran['bobotEvaluasiArray'][4],
-            'nama6' => $evaluasiPembelajaran['namaEvaluasiArray'][5],
-            'bobot6' =>$evaluasiPembelajaran['bobotEvaluasiArray'][5],
-            'nama7' => $evaluasiPembelajaran['namaEvaluasiArray'][6],
-            'bobot7' =>$evaluasiPembelajaran['bobotEvaluasiArray'][6],
-            'nama8' => $evaluasiPembelajaran['namaEvaluasiArray'][7],
-            'bobot8' =>$evaluasiPembelajaran['bobotEvaluasiArray'][7],
-            'isFixed' =>$evaluasiPembelajaran['isFixed']
+            'nama1' => $evaluasiPembelajaran->getNamaEvaluasiArray()[0],
+            'bobot1' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[0],
+            'nama2' => $evaluasiPembelajaran->getNamaEvaluasiArray()[1],
+            'bobot2' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[1],
+            'nama3' => $evaluasiPembelajaran->getNamaEvaluasiArray()[2],
+            'bobot3' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[2],
+            'nama4' => $evaluasiPembelajaran->getNamaEvaluasiArray()[3],
+            'bobot4' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[3],
+            'nama5' => $evaluasiPembelajaran->getNamaEvaluasiArray()[4],
+            'bobot5' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[4],
+            'nama6' => $evaluasiPembelajaran->getNamaEvaluasiArray()[5],
+            'bobot6' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[5],
+            'nama7' => $evaluasiPembelajaran->getNamaEvaluasiArray()[6],
+            'bobot7' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[6],
+            'nama8' => $evaluasiPembelajaran->getNamaEvaluasiArray()[7],
+            'bobot8' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[7],
+            'isFixed' =>$evaluasiPembelajaran->getIsFixed()
         ];
 
         $result = $this->connection->executePrepared(

@@ -100,10 +100,10 @@ class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajara
         ];
     }
 
-    public function byMahasiswa($mahasiswaId)
+    public function byMahasiswa(Mahasiswa $mahasiswa)
     {
         $statementData = [
-            'mahasiswaId' => $mahasiswaId
+            'mahasiswaId' => $mahasiswa->getNRP()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['byMahasiswa'],
@@ -149,25 +149,25 @@ class SqlNilaiEvaluasiPembelajaranRepository implements NilaiEvaluasiPembelajara
         return $nilaiArray;
     }
 
-    public function save($nilaiEvaluasiPembelajaran)
+    public function save(NilaiEvaluasiPembelajaran $nilaiEvaluasiPembelajaran)
     {
         $checkStatementData=[
-            'mahasiswaId' => $nilaiEvaluasiPembelajaran['mahasiswaId'],
-            'kelasId' => $nilaiEvaluasiPembelajaran['kelasId']
+            'mahasiswaId' => $nilaiEvaluasiPembelajaran->getMahasiswa()->getNRP(),
+            'kelasId' => $nilaiEvaluasiPembelajaran->getKelas()->getId()
         ];
         $statementData = [
-            'mahasiswaId' => $nilaiEvaluasiPembelajaran['mahasiswaId'],
-            'kelasId' => $nilaiEvaluasiPembelajaran['kelasId'],
-            'nilai1' =>$nilaiEvaluasiPembelajaran['nilaiArray'][0],
-            'nilai2' =>$nilaiEvaluasiPembelajaran['nilaiArray'][1],
-            'nilai3' =>$nilaiEvaluasiPembelajaran['nilaiArray'][2],
-            'nilai4' =>$nilaiEvaluasiPembelajaran['nilaiArray'][3],
-            'nilai5' =>$nilaiEvaluasiPembelajaran['nilaiArray'][4],
-            'nilai6' =>$nilaiEvaluasiPembelajaran['nilaiArray'][5],
-            'nilai7' =>$nilaiEvaluasiPembelajaran['nilaiArray'][6],
-            'nilai8' =>$nilaiEvaluasiPembelajaran['nilaiArray'][7],
-            'nilaiAngka' => $nilaiEvaluasiPembelajaran['nilaiAngka'],
-            'nilaiHuruf' => $nilaiEvaluasiPembelajaran['nilaiHuruf']
+            'mahasiswaId' => $nilaiEvaluasiPembelajaran->getMahasiswa()->getNRP(),
+            'kelasId' => $nilaiEvaluasiPembelajaran->getKelas()->getId(),
+            'nilai1' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[0],
+            'nilai2' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[1],
+            'nilai3' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[2],
+            'nilai4' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[3],
+            'nilai5' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[4],
+            'nilai6' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[5],
+            'nilai7' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[6],
+            'nilai8' =>$nilaiEvaluasiPembelajaran->getNilaiArray()[7],
+            'nilaiAngka' => $nilaiEvaluasiPembelajaran->getNilaiAngka(),
+            'nilaiHuruf' => $nilaiEvaluasiPembelajaran->getNilaiHuruf()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['get'],
