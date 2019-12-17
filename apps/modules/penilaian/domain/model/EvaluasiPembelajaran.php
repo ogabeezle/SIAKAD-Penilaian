@@ -63,17 +63,9 @@ class EvaluasiPembelajaran{
     /**
      * @return mixed
      */
-    public function getNamaEvaluasiArray()
+    public function getKomponenArray()
     {
-        return $this->namaEvaluasiArray;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getBobotEvaluasiArray()
-    {
-        return $this->bobotEvaluasiArray;
+        return $this->komponenArray;
     }
 
     /**

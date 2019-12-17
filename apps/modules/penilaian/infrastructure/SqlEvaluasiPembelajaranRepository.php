@@ -108,30 +108,27 @@ class SqlEvaluasiPembelajaranRepository implements EvaluasiPembelajaranRepositor
             'kelasId' => $evaluasiPembelajaran->getKelas()->getId(),
             'dosenId' => $evaluasiPembelajaran->getDosen()->getId()
         ];
-        $total=0;
-        foreach ($evaluasiPembelajaran->getBobotEvaluasiArray() as $value){
-            $total+=$value;
-        }
+        $evaluasiPembelajaran->validate();
         $statementData = [
             'kelasId' => $evaluasiPembelajaran->getKelas()->getId(),
             'dosenId' => $evaluasiPembelajaran->getDosen()->getId(),
-            'jumlahPenilaian' => $total,
-            'nama1' => $evaluasiPembelajaran->getNamaEvaluasiArray()[0],
-            'bobot1' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[0],
-            'nama2' => $evaluasiPembelajaran->getNamaEvaluasiArray()[1],
-            'bobot2' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[1],
-            'nama3' => $evaluasiPembelajaran->getNamaEvaluasiArray()[2],
-            'bobot3' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[2],
-            'nama4' => $evaluasiPembelajaran->getNamaEvaluasiArray()[3],
-            'bobot4' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[3],
-            'nama5' => $evaluasiPembelajaran->getNamaEvaluasiArray()[4],
-            'bobot5' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[4],
-            'nama6' => $evaluasiPembelajaran->getNamaEvaluasiArray()[5],
-            'bobot6' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[5],
-            'nama7' => $evaluasiPembelajaran->getNamaEvaluasiArray()[6],
-            'bobot7' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[6],
-            'nama8' => $evaluasiPembelajaran->getNamaEvaluasiArray()[7],
-            'bobot8' =>$evaluasiPembelajaran->getBobotEvaluasiArray()[7],
+            'jumlahPenilaian' => $evaluasiPembelajaran->getJumlahPenilaian(),
+            'nama1' => $evaluasiPembelajaran->getKomponenArray()[0]->getNama(),
+            'bobot1' =>$evaluasiPembelajaran->getKomponenArray()[0]->getBobot(),
+            'nama2' => $evaluasiPembelajaran->getKomponenArray()[1]->getNama(),
+            'bobot2' =>$evaluasiPembelajaran->getKomponenArray()[1]->getBobot(),
+            'nama3' => $evaluasiPembelajaran->getKomponenArray()[2]->getNama(),
+            'bobot3' =>$evaluasiPembelajaran->getKomponenArray()[2]->getBobot(),
+            'nama4' => $evaluasiPembelajaran->getKomponenArray()[3]->getNama(),
+            'bobot4' =>$evaluasiPembelajaran->getKomponenArray()[3]->getBobot(),
+            'nama5' => $evaluasiPembelajaran->getKomponenArray()[4]->getNama(),
+            'bobot5' =>$evaluasiPembelajaran->getKomponenArray()[4]->getBobot(),
+            'nama6' => $evaluasiPembelajaran->getKomponenArray()[5]->getNama(),
+            'bobot6' =>$evaluasiPembelajaran->getKomponenArray()[5]->getBobot(),
+            'nama7' => $evaluasiPembelajaran->getKomponenArray()[6]->getNama(),
+            'bobot7' =>$evaluasiPembelajaran->getKomponenArray()[6]->getBobot(),
+            'nama8' => $evaluasiPembelajaran->getKomponenArray()[7]->getNama(),
+            'bobot8' =>$evaluasiPembelajaran->getKomponenArray()[7]->getBobot(),
             'isFixed' =>$evaluasiPembelajaran->getIsFixed()
         ];
 

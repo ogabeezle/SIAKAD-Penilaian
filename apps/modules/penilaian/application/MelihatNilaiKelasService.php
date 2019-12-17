@@ -12,7 +12,7 @@ class MelihatNilaikelasService{
 
     public function execute(MelihatNilaiKelasRequest $request){
         $nilaiKelasArray = $this->kelasRepository->getNilai(
-            $request->kelasId
+            $request->kelas
         );
         return new MelihatNilaiKelasResponse($nilaiKelasArray);
     }
