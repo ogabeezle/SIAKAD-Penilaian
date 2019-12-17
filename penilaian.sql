@@ -40,6 +40,8 @@ CREATE TABLE `aktivitas_mengajar` (
 
 INSERT INTO `aktivitas_mengajar` (`dosen_id`, `kelas_id`) VALUES
 ('dosen1', 'kelas1');
+INSERT INTO `aktivitas_mengajar` (`dosen_id`, `kelas_id`) VALUES
+('dosen1', 'kelas2');
 
 -- --------------------------------------------------------
 
