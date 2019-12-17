@@ -3,7 +3,7 @@ namespace Siakad\Penilaian\Application;
 
 use Siakad\Penilaian\Domain\Model\NilaiRepository;
 
-class MelihatNilaiService{
+class MelihatSkalaNilaiService{
     private $nilaiRepository;
     public function __construct(NilaiRepository $nilaiRepository)
     {
@@ -11,7 +11,7 @@ class MelihatNilaiService{
     }
     public function execute(){
         $nilai = $this->nilaiRepository->all();
-        return new MelihatNilaiResponse($nilai);
+        return new MelihatSkalaNilaiResponse($nilai);
     }
 
 }
