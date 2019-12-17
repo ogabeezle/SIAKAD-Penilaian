@@ -68,6 +68,8 @@ class PenilaianController extends Controller
         $service = new MelihatKomponenPenilaianKelasService($this->nilaiEvaluasiPembelajaranRepository);
         $request = new MelihatKomponenPenilaianKelasRequest($kelasId);
         $response = $service->execute($request);
+        var_dump($response);
+//        die(0);
         $this->view->error = false;
         $this->view->komponenpenilaian = $response->data[0];
 

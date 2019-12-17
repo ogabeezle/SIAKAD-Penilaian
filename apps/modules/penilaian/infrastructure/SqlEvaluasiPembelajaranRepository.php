@@ -102,37 +102,34 @@ class SqlEvaluasiPembelajaranRepository implements EvaluasiPembelajaranRepositor
         ];
     }
 
-    public function save($evaluasiPembelajaran)
+    public function save(EvaluasiPembelajaran $evaluasiPembelajaran)
     {
         $checkStatementData = [
-            'kelasId' => $evaluasiPembelajaran['kelasId'],
-            'dosenId' => $evaluasiPembelajaran['dosenId']
+            'kelasId' => $evaluasiPembelajaran->getKelas()->getId(),
+            'dosenId' => $evaluasiPembelajaran->getDosen()->getId()
         ];
-        $total=0;
-        foreach ($evaluasiPembelajaran['bobotEvaluasiArray'] as $value){
-            $total+=$value;
-        }
+        $evaluasiPembelajaran->validate();
         $statementData = [
-            'kelasId' => $evaluasiPembelajaran['kelasId'],
-            'dosenId' => $evaluasiPembelajaran['dosenId'],
-            'jumlahPenilaian' => $total,
-            'nama1' => $evaluasiPembelajaran['namaEvaluasiArray'][0],
-            'bobot1' =>$evaluasiPembelajaran['bobotEvaluasiArray'][0],
-            'nama2' => $evaluasiPembelajaran['namaEvaluasiArray'][1],
-            'bobot2' =>$evaluasiPembelajaran['bobotEvaluasiArray'][1],
-            'nama3' => $evaluasiPembelajaran['namaEvaluasiArray'][2],
-            'bobot3' =>$evaluasiPembelajaran['bobotEvaluasiArray'][2],
-            'nama4' => $evaluasiPembelajaran['namaEvaluasiArray'][3],
-            'bobot4' =>$evaluasiPembelajaran['bobotEvaluasiArray'][3],
-            'nama5' => $evaluasiPembelajaran['namaEvaluasiArray'][4],
-            'bobot5' =>$evaluasiPembelajaran['bobotEvaluasiArray'][4],
-            'nama6' => $evaluasiPembelajaran['namaEvaluasiArray'][5],
-            'bobot6' =>$evaluasiPembelajaran['bobotEvaluasiArray'][5],
-            'nama7' => $evaluasiPembelajaran['namaEvaluasiArray'][6],
-            'bobot7' =>$evaluasiPembelajaran['bobotEvaluasiArray'][6],
-            'nama8' => $evaluasiPembelajaran['namaEvaluasiArray'][7],
-            'bobot8' =>$evaluasiPembelajaran['bobotEvaluasiArray'][7],
-            'isFixed' =>$evaluasiPembelajaran['isFixed']
+            'kelasId' => $evaluasiPembelajaran->getKelas()->getId(),
+            'dosenId' => $evaluasiPembelajaran->getDosen()->getId(),
+            'jumlahPenilaian' => $evaluasiPembelajaran->getJumlahPenilaian(),
+            'nama1' => $evaluasiPembelajaran->getKomponenArray()[0]->getNama(),
+            'bobot1' =>$evaluasiPembelajaran->getKomponenArray()[0]->getBobot(),
+            'nama2' => $evaluasiPembelajaran->getKomponenArray()[1]->getNama(),
+            'bobot2' =>$evaluasiPembelajaran->getKomponenArray()[1]->getBobot(),
+            'nama3' => $evaluasiPembelajaran->getKomponenArray()[2]->getNama(),
+            'bobot3' =>$evaluasiPembelajaran->getKomponenArray()[2]->getBobot(),
+            'nama4' => $evaluasiPembelajaran->getKomponenArray()[3]->getNama(),
+            'bobot4' =>$evaluasiPembelajaran->getKomponenArray()[3]->getBobot(),
+            'nama5' => $evaluasiPembelajaran->getKomponenArray()[4]->getNama(),
+            'bobot5' =>$evaluasiPembelajaran->getKomponenArray()[4]->getBobot(),
+            'nama6' => $evaluasiPembelajaran->getKomponenArray()[5]->getNama(),
+            'bobot6' =>$evaluasiPembelajaran->getKomponenArray()[5]->getBobot(),
+            'nama7' => $evaluasiPembelajaran->getKomponenArray()[6]->getNama(),
+            'bobot7' =>$evaluasiPembelajaran->getKomponenArray()[6]->getBobot(),
+            'nama8' => $evaluasiPembelajaran->getKomponenArray()[7]->getNama(),
+            'bobot8' =>$evaluasiPembelajaran->getKomponenArray()[7]->getBobot(),
+            'isFixed' =>$evaluasiPembelajaran->getIsFixed()
         ];
 
         $result = $this->connection->executePrepared(

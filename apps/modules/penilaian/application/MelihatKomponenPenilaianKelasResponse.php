@@ -17,8 +17,15 @@ class MelihatKomponenPenilaianKelasResponse{
         $buffer = [];
         foreach($data as $d){
             $buffer['dosenId'] = $d->getDosen()->getId();
-            $buffer['namaEvaluasiArray'] = $d->getNamaEvaluasiArray();
-            $buffer['bobotEvaluasiArray'] = $d->getBobotEvaluasiArray();
+            $namaEvaluasiArray=array();
+            $bobotEvaluasiArray=array();
+            for($i=0;$i<8;$i++){
+                array_push($namaEvaluasiArray,$d->getKomponenArray()[$i]->getNama());
+                array_push($bobotEvaluasiArray,$d->getKomponenArray()[$i]->getBobot());
+
+            }
+            $buffer['namaEvaluasiArray'] = $namaEvaluasiArray;
+            $buffer['bobotEvaluasiArray'] = $bobotEvaluasiArray;
             $buffer['isFixed'] = $d->getIsFixed();
             array_push($ret, $buffer);
 

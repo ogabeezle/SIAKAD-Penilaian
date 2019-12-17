@@ -7,6 +7,7 @@ use Siakad\Penilaian\Domain\Model\EvaluasiPembelajaran;
 use Siakad\Penilaian\Domain\Model\Kelas;
 use Siakad\Penilaian\Domain\Model\KelasRepository;
 use Siakad\Penilaian\Domain\Model\Dosen;
+use Siakad\Penilaian\Domain\Model\KomponenPenilaian;
 use Siakad\Penilaian\Domain\Model\Mahasiswa;
 use Siakad\Penilaian\Domain\Model\MataKuliah;
 use Siakad\Penilaian\Domain\Model\NilaiEvaluasiPembelajaran;
@@ -87,10 +88,10 @@ class SqlKelasRepository implements KelasRepository{
         ];
     }
 
-    public function getKomponen($kelasid)
+    public function getKomponen(Kelas $kelas)
     {
         $statementData = [
-            'kelasId' => $kelasid
+            'kelasId' => $kelas->getId()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['getKomponen'],
@@ -121,24 +122,14 @@ class SqlKelasRepository implements KelasRepository{
                 ),
                 $item[self::INDEX_JUMLAH_PENILAIAN],
                 array(
-                    $item[self::INDEX_NAMA_EVALUASI_1],
-                    $item[self::INDEX_NAMA_EVALUASI_2],
-                    $item[self::INDEX_NAMA_EVALUASI_3],
-                    $item[self::INDEX_NAMA_EVALUASI_4],
-                    $item[self::INDEX_NAMA_EVALUASI_5],
-                    $item[self::INDEX_NAMA_EVALUASI_6],
-                    $item[self::INDEX_NAMA_EVALUASI_7],
-                    $item[self::INDEX_NAMA_EVALUASI_8]
-                ),
-                array(
-                    $item[self::INDEX_BOBOT_1],
-                    $item[self::INDEX_BOBOT_2],
-                    $item[self::INDEX_BOBOT_3],
-                    $item[self::INDEX_BOBOT_4],
-                    $item[self::INDEX_BOBOT_5],
-                    $item[self::INDEX_BOBOT_6],
-                    $item[self::INDEX_BOBOT_7],
-                    $item[self::INDEX_BOBOT_8]
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_1],$item[self::INDEX_BOBOT_1]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_2],$item[self::INDEX_BOBOT_2]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_3],$item[self::INDEX_BOBOT_3]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_4],$item[self::INDEX_BOBOT_4]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_5],$item[self::INDEX_BOBOT_5]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_6],$item[self::INDEX_BOBOT_6]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_7],$item[self::INDEX_BOBOT_7]),
+                    new KomponenPenilaian($item[self::INDEX_NAMA_EVALUASI_8],$item[self::INDEX_BOBOT_8])
                 ),
                 $item[self::INDEX_ISFIXED]
             ));
@@ -146,9 +137,9 @@ class SqlKelasRepository implements KelasRepository{
         return $komponenArray;
     }
 
-    public function getNilai($kelasId){
+    public function getNilai(Kelas $kelas){
         $statementData = [
-            'kelasId' => $kelasId
+            'kelasId' => $kelas->getId()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['getNilai'],
@@ -193,11 +184,11 @@ class SqlKelasRepository implements KelasRepository{
         }
         return $nilaiArray;
     }
-    public function byDosenAndSemseter($dosenId, $semesterId)
+    public function byDosenAndSemseter(Dosen $dosen, Semester $semester)
     {
         $statementData = [
-            'dosenId' => $dosenId,
-            'semesterId' => $semesterId
+            'dosenId' => $dosen->getId(),
+            'semesterId' => $semester->getId()
         ];
         $result = $this->connection->executePrepared(
             $this->statement['byDosenAndSemester'],
