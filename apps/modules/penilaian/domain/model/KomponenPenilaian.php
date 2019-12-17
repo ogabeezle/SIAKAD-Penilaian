@@ -32,5 +32,11 @@ class KomponenPenilaian{
     {
         return $this->bobot;
     }
+    public function setNama($nama){
+        $this->nama=$nama;
+    }
+    public function setBobot($bobot){
+        $this->bobot=$bobot;
+    }
 
 }
