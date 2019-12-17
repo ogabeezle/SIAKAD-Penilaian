@@ -4,7 +4,7 @@ namespace Siakad\Penilaian\Infrastructure;
 
 use Phalcon\Db\Column;
 use Phalcon\Di;
-use Siakad\Penilaian\Domain\Model\Nilai;
+use Siakad\Penilaian\Domain\Model\SkalaNilai;
 use Siakad\Penilaian\Domain\Model\NilaiRepository;
 
 class SqlNilaiRepository implements NilaiRepository
@@ -65,7 +65,7 @@ class SqlNilaiRepository implements NilaiRepository
         );
         $nilaiArray = array();
         foreach ($result as $item){
-            array_push($nilaiArray, new Nilai(
+            array_push($nilaiArray, new SkalaNilai(
                 $item[self::INDEX_ID],
                 $item[self::INDEX_NILAI_NUEMRIK],
                 $item[self::INDEX_NILAI_HURUF],
@@ -79,8 +79,6 @@ class SqlNilaiRepository implements NilaiRepository
 
     public function save($nilai)
     {
-        var_dump($nilai);
-//        die(0);
         $checkStatementData = [
             'id' => $nilai['id']
         ];
