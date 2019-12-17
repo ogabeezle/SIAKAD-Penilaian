@@ -2,9 +2,6 @@
 
 namespace Siakad\Penilaian\Domain\Model;
 
-use Siakad\Common\Exception\SkalaNilaiException;
-use Siakad\Penilaian\Domain\Model\SkalaNilai as SkalaNilai;
-
 class SkalaNilaiRoot {
     private $skalaNilaiArray;
 
@@ -12,6 +9,9 @@ class SkalaNilaiRoot {
         $this->skalaNilaiArray = $skalaNilaiArray;
     }
 
+    /**
+     * @return mixed
+     */
     public function getSkalaNilaiArray()
     {
         return $this->skalaNilaiArray;
@@ -20,12 +20,8 @@ class SkalaNilaiRoot {
     public function validityCheck() {
         for ($i = 0; $i<sizeof($this->skalaNilaiArray); $i++) {
             $skalaNilaiA = $this->skalaNilaiArray[$i];
-            for ($j = $i; $j<sizeof($this->skalaNilaiArray); $j++) {
-                try {
-                    $skalaNilaiA.compare($this->skalaNilaiArray[$j]);
-                } catch (SkalaNilaiException $e) {
-                    throw new SkalaNilaiException($e->getMessage());
-                }
+            for ($j = $i+1; $j<sizeof($this->skalaNilaiArray); $j++) {
+                $skalaNilaiA.compare($this->skalaNilaiArray[$j]);
             }
         }
     }
