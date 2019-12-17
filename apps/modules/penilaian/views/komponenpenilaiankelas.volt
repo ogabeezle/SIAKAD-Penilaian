@@ -27,7 +27,7 @@
 
 {{ flash.output() }}
 
-<form action="/komponenpenilaiankelas" method="post">
+<form action="/ubahkomponenpenilaiankelas" method="post">
 <input type="hidden" name="kelasId" value="{{ kelasId }}">
 <input type="hidden" name="dosenId" value="{{ komponenpenilaian.dosenId }}">
 <table>

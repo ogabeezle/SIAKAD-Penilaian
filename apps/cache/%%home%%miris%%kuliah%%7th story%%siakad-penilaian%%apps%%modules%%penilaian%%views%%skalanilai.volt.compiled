@@ -27,7 +27,7 @@
 
 <?= $this->flash->output() ?>
 
-<form action="/lihatskalanilai" method="post">
+<form action="/ubahskalanilai" method="post">
 <table>
     <tr>
         <th width="150px">Nilai Huruf</th>

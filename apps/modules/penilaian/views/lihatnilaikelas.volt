@@ -89,7 +89,7 @@
     
     {% for evaluasi in listevaluasi %}
     <tr>
-        <form action="/lihatnilaikelas" method="post">
+        <form action="/ubahnilaikelas" method="post">
         <input type="hidden" name="kelasId" value="{{ kelasId }}">
         <input type="hidden" name="mahasiswaId" value="{{ evaluasi.mahasiswa.nrp }}">
         <input type="hidden" name="nilaiAngka" value="{{ evaluasi.nilaiAngka }}">
