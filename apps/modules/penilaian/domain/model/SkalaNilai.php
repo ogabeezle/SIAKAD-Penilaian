@@ -2,23 +2,26 @@
 
 namespace Siakad\Penilaian\Domain\Model;
 
-class Nilai{
+use Siakad\Common\Exception\SkalaNilaiException;
+
+class SkalaNilai
+{
     private $id;
     private $nilaiHuruf;
     private $nilaiNumerik;
     private $batasBawah;
     private $batasAtas;
 
-    /**
-     * Nilai constructor.
-     * @param $id
-     * @param $nilaiHuruf
-     * @param $nilaiNumerik
-     * @param $batasBawah
-     * @param $batasAtas
-     */
     public function __construct($id, $nilaiNumerik, $nilaiHuruf, $batasAtas, $batasBawah)
     {
+        if (0.0 > $nilaiNumerik || $nilaiNumerik > 4.0) {
+            throw new SkalaNilaiException("Rentang nilai numerik antara 0.00 hingga 4.00");
+        }
+
+        if ($batasBawah >= $batasAtas) {
+            throw new SkalaNilaiException("Nilai batas bawah melebihi atau sama dengan nilai batas atas");
+        }
+
         $this->id = $id;
         $this->nilaiHuruf = $nilaiHuruf;
         $this->nilaiNumerik = $nilaiNumerik;
@@ -26,84 +29,65 @@ class Nilai{
         $this->batasAtas = $batasAtas;
     }
 
-    /**
-     * @return mixed
-     */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getNilaiHuruf()
     {
         return $this->nilaiHuruf;
     }
 
-    /**
-     * @param mixed $nilaiHuruf
-     */
     public function setNilaiHuruf($nilaiHuruf)
     {
         $this->nilaiHuruf = $nilaiHuruf;
     }
 
-    /**
-     * @return mixed
-     */
     public function getNilaiNumerik()
     {
         return $this->nilaiNumerik;
     }
 
-    /**
-     * @param mixed $nilaiNumerik
-     */
     public function setNilaiNumerik($nilaiNumerik)
     {
         $this->nilaiNumerik = $nilaiNumerik;
     }
 
-    /**
-     * @return mixed
-     */
     public function getBatasBawah()
     {
         return $this->batasBawah;
     }
 
-    /**
-     * @param mixed $batasBawah
-     */
     public function setBatasBawah($batasBawah)
     {
         $this->batasBawah = $batasBawah;
     }
 
-    /**
-     * @return mixed
-     */
     public function getBatasAtas()
     {
         return $this->batasAtas;
     }
 
-    /**
-     * @param mixed $batasAtas
-     */
     public function setBatasAtas($batasAtas)
     {
         $this->batasAtas = $batasAtas;
+    }
+
+    public function compare(SkalaNilai $that)
+    {
+        if ($this->nilaiHuruf === $that->getNilaiHuruf()) {
+            throw new SkalaNilaiException("Nilai huruf identik");
+        }
+        if ($this->nilaiNumerik === $that->getNilaiNumerik()) {
+            throw new SkalaNilaiException("Nilai numerik identik");
+        }
+        if (($this->batasBawah <= $that->getBatasAtas() && $that->getBatasAtas() <= $this->batasAtas) ||
+            ($this->batasBawah <= $that->getBatasBawah() && $that->getBatasBawah() <= $this->batasAtas)) {
+            throw new SkalaNilaiException("Batas nilai overlap");
+        }
+
+        return true;
     }
 
 }
