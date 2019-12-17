@@ -2,23 +2,26 @@
 
 namespace Siakad\Penilaian\Domain\Model;
 
-class Nilai{
+use Siakad\Common\Exception\SkalaNilaiException;
+
+class SkalaNilai
+{
     private $id;
     private $nilaiHuruf;
     private $nilaiNumerik;
     private $batasBawah;
     private $batasAtas;
 
-    /**
-     * Nilai constructor.
-     * @param $id
-     * @param $nilaiHuruf
-     * @param $nilaiNumerik
-     * @param $batasBawah
-     * @param $batasAtas
-     */
     public function __construct($id, $nilaiNumerik, $nilaiHuruf, $batasAtas, $batasBawah)
     {
+        if (0.0 > $nilaiNumerik || $nilaiNumerik > 4.0) {
+            throw new SkalaNilaiException("Rentang nilai numerik antara 0.00 hingga 4.00");
+        }
+
+        if ($batasBawah >= $batasAtas) {
+            throw new SkalaNilaiException("Nilai batas bawah melebihi atau sama dengan nilai batas atas");
+        }
+
         $this->id = $id;
         $this->nilaiHuruf = $nilaiHuruf;
         $this->nilaiNumerik = $nilaiNumerik;
@@ -35,14 +38,6 @@ class Nilai{
     }
 
     /**
-     * @param mixed $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return mixed
      */
     public function getNilaiHuruf()
@@ -51,7 +46,7 @@ class Nilai{
     }
 
     /**
-     * @param mixed $nilaiHuruf
+     * @param $nilaiHuruf
      */
     public function setNilaiHuruf($nilaiHuruf)
     {
@@ -67,7 +62,7 @@ class Nilai{
     }
 
     /**
-     * @param mixed $nilaiNumerik
+     * @param $nilaiNumerik
      */
     public function setNilaiNumerik($nilaiNumerik)
     {
@@ -83,7 +78,7 @@ class Nilai{
     }
 
     /**
-     * @param mixed $batasBawah
+     * @param $batasBawah
      */
     public function setBatasBawah($batasBawah)
     {
@@ -99,11 +94,29 @@ class Nilai{
     }
 
     /**
-     * @param mixed $batasAtas
+     * @param $batasAtas
      */
     public function setBatasAtas($batasAtas)
     {
         $this->batasAtas = $batasAtas;
+    }
+
+    /**
+     * @param SkalaNilai $that
+     * @throws SkalaNilaiException
+     */
+    public function compare(SkalaNilai $that)
+    {
+        if ($this->nilaiHuruf === $that->getNilaiHuruf()) {
+            throw new SkalaNilaiException("Nilai huruf identik");
+        }
+        if ($this->nilaiNumerik === $that->getNilaiNumerik()) {
+            throw new SkalaNilaiException("Nilai numerik identik");
+        }
+        if (($this->batasBawah <= $that->getBatasAtas() && $that->getBatasAtas() <= $this->batasAtas) ||
+            ($this->batasBawah <= $that->getBatasBawah() && $that->getBatasBawah() <= $this->batasAtas)) {
+            throw new SkalaNilaiException("Batas nilai overlap");
+        }
     }
 
 }
