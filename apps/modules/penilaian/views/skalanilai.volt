@@ -37,8 +37,8 @@
     {% for data in listskalanilai %}
     <tr>
             <input type='hidden' value="{{data.id}}" name="id[]" readonly>
-            <td><center>{{ data.nilaiHuruf }}</center></td>
-            <td><center>{{ data.nilaiNumerik }}</center></td>
+            <td><center><input type="text" name="nilaiHuruf[]" value="{{ data.nilaiHuruf }}" readonly></center></td>
+            <td><center><input type="number" name="nilaiNumerik[]" value="{{ data.nilaiNumerik }}" readonly></center></td>
             <td><center><input type="number" name="batasBawah[]" min="0" max="100" value="{{ data.batasBawah }}"></center></td>
             <td><center><input type="number" name="batasAtas[]" min="0" max="100" value="{{ data.batasAtas }}"></center></td>
     </tr>

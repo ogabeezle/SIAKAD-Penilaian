@@ -7,7 +7,7 @@ use Siakad\Penilaian\Domain\Model\MataKuliah;
 use Siakad\Penilaian\Domain\Model\Semester;
 
 class MelihatNilaiKelasRequest{
-    public $kelasId;
+    public $kelas;
 
     public function __construct($kelasId)
     {

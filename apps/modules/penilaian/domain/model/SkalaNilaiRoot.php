@@ -17,11 +17,11 @@ class SkalaNilaiRoot {
         return $this->skalaNilaiArray;
     }
 
-    public function validityCheck() {
+    public function validate() {
         for ($i = 0; $i<sizeof($this->skalaNilaiArray); $i++) {
             $skalaNilaiA = $this->skalaNilaiArray[$i];
             for ($j = $i+1; $j<sizeof($this->skalaNilaiArray); $j++) {
-                $skalaNilaiA.compare($this->skalaNilaiArray[$j]);
+                $skalaNilaiA->compare($this->skalaNilaiArray[$j]);
             }
         }
     }
