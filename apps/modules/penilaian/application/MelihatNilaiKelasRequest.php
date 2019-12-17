@@ -11,6 +11,6 @@ class MelihatNilaiKelasRequest{
 
     public function __construct($kelasId)
     {
-        $this->kelasId=new Kelas($kelasId,new Semester(null,null,null),new MataKuliah(null,null,null,null),null);
+        $this->kelas=new Kelas($kelasId,new Semester(null,null,null),new MataKuliah(null,null,null,null),null);
     }
 }
